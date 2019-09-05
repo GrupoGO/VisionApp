@@ -2,7 +2,7 @@
 
 ### Important
 
-> VisionApp is based on ARKit configurations and require an iOS device with an A9 or later processor, with iOS 12.0 or later.
+> VisionApp is based on ARKit configurations and face tracking. Is available only on iOS devices with a front-facing TrueDepth camera with iOS 12.0 or later.
 
 <img src="https://github.com/GrupoGO/VisionApp/blob/master/1.PNG?raw=true" width="30%" align="left">
 <img src="https://github.com/GrupoGO/VisionApp/blob/master/2.PNG?raw=true" width="30%" align="left">
