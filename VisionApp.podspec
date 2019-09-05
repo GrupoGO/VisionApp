@@ -91,7 +91,7 @@ Pod::Spec.new do |s|
   #
 
   s.source_files = "VisionApp"
-  s.swift_version = "5" 
+  s.swift_version = "5.1" 
 
   # s.exclude_files = "Classes/Exclude"
 
