@@ -1,8 +1,8 @@
 # VisionApp
 
-<img src="https://github.com/GrupoGO/VisionApp/blob/master/1.PNG?raw=true" width="33.333%" align="left">
-<img src="https://github.com/GrupoGO/VisionApp/blob/master/2.PNG?raw=true" width="33.333%" align="left">
-<img src="https://github.com/GrupoGO/VisionApp/blob/master/3.PNG?raw=true" width="33.333%">
+<img src="https://github.com/GrupoGO/VisionApp/blob/master/1.PNG?raw=true" width="30%" align="left">
+<img src="https://github.com/GrupoGO/VisionApp/blob/master/2.PNG?raw=true" width="30%" align="left">
+<img src="https://github.com/GrupoGO/VisionApp/blob/master/3.PNG?raw=true" width="30%">
 
 ## How to use
 
