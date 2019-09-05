@@ -87,12 +87,12 @@ public class VisionApp: NSObject {
         } else if ARFaceTrackingConfiguration.isSupported {
             DispatchQueue.main.async {
                 
-                let appName = Bundle.main.infoDictionary?["CFBundleName"] as? String ?? NSLocalizedString("the app", tableName: nil, bundle: Bundle(identifier: "eu.vision-app.VisionApp")!, value: "", comment: "")
+                let appName = Bundle.main.infoDictionary?["CFBundleName"] as? String ?? NSLocalizedString("the app", tableName: nil, bundle: Bundle(for: type(of: self)), value: "", comment: "")
                 
-                let alertController = UIAlertController(title: "VisionApp", message: String(format: NSLocalizedString("Do you have a VisionApp account that you want to link to %@?", bundle: Bundle(identifier: "eu.vision-app.VisionApp")!, comment: ""), appName), preferredStyle: .alert)
+                let alertController = UIAlertController(title: "VisionApp", message: String(format: NSLocalizedString("Do you have a VisionApp account that you want to link to %@?", bundle: Bundle(for: type(of: self)), comment: ""), appName), preferredStyle: .alert)
                 
-                let doneAction = UIAlertAction(title: NSLocalizedString("Yes", bundle: Bundle(identifier: "eu.vision-app.VisionApp")!, comment: ""), style: .default, handler: { (_) in
-                    let storyboard = UIStoryboard(name: "Main", bundle: Bundle(identifier: "eu.vision-app.VisionApp")!)
+                let doneAction = UIAlertAction(title: NSLocalizedString("Yes", bundle: Bundle(for: type(of: self)), comment: ""), style: .default, handler: { (_) in
+                    let storyboard = UIStoryboard(name: "Main", bundle: Bundle(for: type(of: self)))
                     guard let loginViewController = storyboard.instantiateViewController(withIdentifier: "loginVC") as? VALoginVC else { return }
                     loginViewController.modalPresentationStyle = .formSheet
                     if #available(iOS 13.0, *) {
@@ -102,7 +102,7 @@ public class VisionApp: NSObject {
                 })
                 alertController.addAction(doneAction)
                 
-                let cancelAction = UIAlertAction(title: NSLocalizedString("No", bundle: Bundle(identifier: "eu.vision-app.VisionApp")!, comment: ""), style: .cancel) { (_) in
+                let cancelAction = UIAlertAction(title: NSLocalizedString("No", bundle: Bundle(for: type(of: self)), comment: ""), style: .cancel) { (_) in
                     self.delegate?.cancelVALogin()
                 }
                 alertController.addAction(cancelAction)
@@ -129,9 +129,9 @@ public class VisionApp: NSObject {
         self.resetTracking()
         self.setupEyeNode()
         
-        let appName = Bundle.main.infoDictionary?["CFBundleName"] as? String ?? NSLocalizedString("the app", tableName: nil, bundle: Bundle(identifier: "eu.vision-app.VisionApp")!, value: "", comment: "")
+        let appName = Bundle.main.infoDictionary?["CFBundleName"] as? String ?? NSLocalizedString("the app", tableName: nil, bundle: Bundle(for: type(of: self)), value: "", comment: "")
         self.hiddenView = HiddenView(frame: UIScreen.main.bounds)
-        hiddenView!.textLabel.text = String(format: NSLocalizedString("You are too close to the screen.\n\nGet away to continue using %@.", tableName: nil, bundle: Bundle(identifier: "eu.vision-app.VisionApp")!, value: "", comment: ""), appName)
+        hiddenView!.textLabel.text = String(format: NSLocalizedString("You are too close to the screen.\n\nGet away to continue using %@.", tableName: nil, bundle: Bundle(for: type(of: self)), value: "", comment: ""), appName)
         let topContrain = NSLayoutConstraint(item: self.hiddenView!, attribute: .top, relatedBy: .equal, toItem: UIApplication.shared.windows.last, attribute: .top, multiplier: 1, constant: 0)
         let bottomContrain = NSLayoutConstraint(item: self.hiddenView!, attribute: .bottom, relatedBy: .equal, toItem: UIApplication.shared.windows.last, attribute: .bottom, multiplier: 1, constant: 0)
         let leftContrain = NSLayoutConstraint(item: self.hiddenView!, attribute: .left, relatedBy: .equal, toItem: UIApplication.shared.windows.last, attribute: .left, multiplier: 1, constant: 0)
@@ -542,7 +542,7 @@ extension SCNMatrix4 {
 
 extension SCNReferenceNode {
     convenience init(named resourceName: String, loadImmediately: Bool = true) {
-        let url = Bundle(identifier: "eu.vision-app.VisionApp")!.url(forResource: resourceName, withExtension: "scn", subdirectory: "Models.scnassets")!
+        let url = Bundle(for: type(of: self)).url(forResource: resourceName, withExtension: "scn", subdirectory: "Models.scnassets")!
         self.init(url: url)!
         if loadImmediately {
             self.load()
