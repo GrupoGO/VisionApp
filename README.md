@@ -20,6 +20,8 @@ func application(_ application: UIApplication, didFinishLaunchingWithOptions lau
 
     // MARK: - Init VisionApp user session
     VisionApp.shared.startTracking(userToken: "<USER_TOKEN>")
+    // OR Init with login request
+    VisionApp.shared.startTracking()
 
     // MARK: - Finish session and logout VisionApp user
     VisionApp.shared.startTracking(userToken: "<USER_TOKEN>")
