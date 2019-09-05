@@ -16,3 +16,6 @@
 
 /* Class = "UITextField"; placeholder = "Password"; ObjectID = "xQO-EH-bY0"; */
 "xQO-EH-bY0.placeholder" = "Contraseña";
+
+/* Class = "UIButton"; normalTitle = "Cancel"; ObjectID = "nov-Mm-1Ws"; */
+"nov-Mm-1Ws.normalTitle" = "Cancelar";
