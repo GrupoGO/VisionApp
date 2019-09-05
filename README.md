@@ -15,7 +15,7 @@ func application(_ application: UIApplication, didFinishLaunchingWithOptions lau
     // ...
 
     // MARK: - VisionApp configuration
-    VisionApp.shared.configuration(token: "0d321e11be9a87782063251567587191", secret: "4dc3e71dce32ddc1d1edc91567587191", delegate: self)
+    VisionApp.shared.configuration(token: "<YOUR_TOKEN>", secret: "<YOUR_SECRET>", delegate: self)
 
 
     // MARK: - Init VisionApp user session
@@ -24,7 +24,7 @@ func application(_ application: UIApplication, didFinishLaunchingWithOptions lau
     VisionApp.shared.startTracking()
 
     // MARK: - Finish session and logout VisionApp user
-    VisionApp.shared.startTracking(userToken: "<USER_TOKEN>")
+    VisionApp.shared.stopTracking()
 
     // ...
 }
