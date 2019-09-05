@@ -1,0 +1,20 @@
+/* 
+  Localizable.strings
+  VisionApp
+
+  Created by Emilio Cubo Ruiz on 04/09/2019.
+  Copyright © 2019 VIsionApp. All rights reserved.
+*/
+
+"You are too close to the screen.\n\nGet away to continue using %@." = "Estás demasiado cerca de la pantalla.\n\nAléjate para seguir usando %@.";
+"the app" = "la aplicación";
+"Do you have a VisionApp account that you want to link to %@?" = "¿Tienes una cuenta de VisionApp que quieras vincular con %@?";
+"Yes" = "Si";
+"No" = "No";
+"Recovery password" = "Recuperar contraseña";
+"Done" = "Aceptar";
+"Cancel" = "Cancelar";
+"E-Mail" = "E-Mail";
+"Success" = "Success";
+"Error" = "Error";
+"An email has been sent to retrieve the password" = "Se ha enviado un correo electrónico para recuperar la contraseña.";

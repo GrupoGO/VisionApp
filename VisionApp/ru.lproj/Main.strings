@@ -1,0 +1,18 @@
+
+/* Class = "UIButton"; normalTitle = "Forgot my password"; ObjectID = "ZPv-g4-7dg"; */
+"ZPv-g4-7dg.normalTitle" = "Забыл мой пароль";
+
+/* Class = "UITextField"; placeholder = "Username"; ObjectID = "bT2-Q5-Xmc"; */
+"bT2-Q5-Xmc.placeholder" = "имя пользователя";
+
+/* Class = "UILabel"; text = "Password"; ObjectID = "jVV-Dh-rX4"; */
+"jVV-Dh-rX4.text" = "пароль";
+
+/* Class = "UILabel"; text = "Username"; ObjectID = "jnk-rq-bY4"; */
+"jnk-rq-bY4.text" = "имя пользователя";
+
+/* Class = "UIButton"; normalTitle = "Sign in"; ObjectID = "uES-gR-jWR"; */
+"uES-gR-jWR.normalTitle" = "Sign in";
+
+/* Class = "UITextField"; placeholder = "Password"; ObjectID = "xQO-EH-bY0"; */
+"xQO-EH-bY0.placeholder" = "пароль";
