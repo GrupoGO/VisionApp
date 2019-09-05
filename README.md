@@ -1,9 +1,9 @@
-h1. VisionApp
+# VisionApp
 
-h2. How to use
+## How to use
 
 ```ruby
 pod 'VisionApp', :git => 'https://github.com/GrupoGO/VisionApp', :tag => '1.0'
 ```
 
-h2. Support
+## Support
