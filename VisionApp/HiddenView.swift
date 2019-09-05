@@ -24,7 +24,7 @@ class HiddenView: UIView {
     }
     
     fileprivate func commonInit() {
-        Bundle(identifier: "eu.vision-app.VisionApp")!.loadNibNamed("HiddenView", owner: self, options: nil)
+        Bundle(for: type(of: self)).loadNibNamed("HiddenView", owner: self, options: nil)
         contentView.frame = self.bounds
         contentView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
         self.addSubview(contentView)
