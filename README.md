@@ -2,7 +2,7 @@
 
 ### Important
 
-> VisionApp is based on ARKit configurations and require an iOS device with an A9 or later processor..
+> VisionApp is based on ARKit configurations and require an iOS device with an A9 or later processor.
 
 <img src="https://github.com/GrupoGO/VisionApp/blob/master/1.PNG?raw=true" width="30%" align="left">
 <img src="https://github.com/GrupoGO/VisionApp/blob/master/2.PNG?raw=true" width="30%" align="left">
