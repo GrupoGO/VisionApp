@@ -4,7 +4,7 @@
 
 ### Install
 ```ruby
-pod 'VisionApp', :git => 'https://github.com/GrupoGO/VisionApp', :tag => '1.0'
+pod 'VisionApp', :git => 'https://github.com/GrupoGO/VisionApp'
 ```
 
 ### Configure
