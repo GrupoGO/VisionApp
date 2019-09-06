@@ -338,13 +338,18 @@ public class VisionApp: NSObject {
     }
 
     public func displayErrorMessage(title: String, message: String) {
-        // Present an alert informing about the error that has occurred.
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        let restartAction = UIAlertAction(title: "Restart Session", style: .default) { _ in
-            alertController.dismiss(animated: true, completion: nil)
-            self.resetTracking()
+
+        let gotoSettingsAction = UIAlertAction(title: NSLocalizedString("Go to Settings", tableName: nil, bundle: Bundle(for: type(of: self)), value: "", comment: ""), style: .default) { (_) in
+            if let settingsURL = URL(string: UIApplication.openSettingsURLString) {
+                UIApplication.shared.open(settingsURL)
+            }
         }
-        alertController.addAction(restartAction)
+        alertController.addAction(gotoSettingsAction)
+        
+        let cancelAction = UIAlertAction(title: NSLocalizedString("Later", tableName: nil, bundle: Bundle(for: type(of: self)), value: "", comment: ""), style: .cancel, handler: nil)
+        alertController.addAction(cancelAction)
+
         UIApplication.shared.windows.last?.rootViewController?.present(alertController, animated: true, completion: nil)
     }
     
