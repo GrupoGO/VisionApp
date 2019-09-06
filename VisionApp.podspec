@@ -91,9 +91,9 @@ Pod::Spec.new do |s|
   #
 
   s.source_files = 'VisionApp'
-  #s.resource_bundles = {
-  #  'VisionApp' => ['VisionApp/*.{storyboard,xib,xcassets,json,imageset,png,lproj,scnassets}']
-  #}
+  s.resource_bundles = {
+    'VAModels' => ['VisionApp/Models.scnassets']
+   }
   s.swift_version = "5.1" 
 
   # s.exclude_files = "Classes/Exclude"
