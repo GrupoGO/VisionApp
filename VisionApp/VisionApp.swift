@@ -507,7 +507,6 @@ extension VisionApp: ARSessionDelegate {
         let errorWithInfo = error as NSError
         let messages = [
             errorWithInfo.localizedDescription,
-            errorWithInfo.localizedFailureReason,
             errorWithInfo.localizedRecoverySuggestion
         ]
         let errorMessage = messages.compactMap({ $0 }).joined(separator: "\n")
