@@ -116,6 +116,20 @@ public class VisionApp: NSObject {
     }
     
     func initScene() {
+        // HIDDEN VIEW
+        let appName = Bundle.main.infoDictionary?["CFBundleName"] as? String ?? NSLocalizedString("the app", tableName: nil, bundle: Bundle(for: type(of: self)), value: "", comment: "")
+        self.hiddenView = HiddenView(frame: UIScreen.main.bounds)
+        hiddenView!.textLabel.text = String(format: NSLocalizedString("You are too close to the screen.\n\nGet away to continue using %@.", tableName: nil, bundle: Bundle(for: type(of: self)), value: "", comment: ""), appName)
+        let topContrain = NSLayoutConstraint(item: self.hiddenView!, attribute: .top, relatedBy: .equal, toItem: UIApplication.shared.windows.last, attribute: .top, multiplier: 1, constant: 0)
+        let bottomContrain = NSLayoutConstraint(item: self.hiddenView!, attribute: .bottom, relatedBy: .equal, toItem: UIApplication.shared.windows.last, attribute: .bottom, multiplier: 1, constant: 0)
+        let leftContrain = NSLayoutConstraint(item: self.hiddenView!, attribute: .left, relatedBy: .equal, toItem: UIApplication.shared.windows.last, attribute: .left, multiplier: 1, constant: 0)
+        let rightContrain = NSLayoutConstraint(item: self.hiddenView!, attribute: .right, relatedBy: .equal, toItem: UIApplication.shared.windows.last, attribute: .right, multiplier: 1, constant: 0)
+        UIApplication.shared.windows.last?.addSubview(self.hiddenView!)
+        self.hiddenView!.translatesAutoresizingMaskIntoConstraints = false
+        UIApplication.shared.windows.last?.addConstraints([topContrain, bottomContrain, leftContrain, rightContrain])
+        self.hiddenView!.isHidden = true
+
+        // SCENE VIEW
         self.sceneView = ARSCNView()
         self.sceneView!.delegate = self
         self.sceneView!.session.delegate = self
@@ -129,17 +143,6 @@ public class VisionApp: NSObject {
         self.resetTracking()
         self.setupEyeNode()
         
-        let appName = Bundle.main.infoDictionary?["CFBundleName"] as? String ?? NSLocalizedString("the app", tableName: nil, bundle: Bundle(for: type(of: self)), value: "", comment: "")
-        self.hiddenView = HiddenView(frame: UIScreen.main.bounds)
-        hiddenView!.textLabel.text = String(format: NSLocalizedString("You are too close to the screen.\n\nGet away to continue using %@.", tableName: nil, bundle: Bundle(for: type(of: self)), value: "", comment: ""), appName)
-        let topContrain = NSLayoutConstraint(item: self.hiddenView!, attribute: .top, relatedBy: .equal, toItem: UIApplication.shared.windows.last, attribute: .top, multiplier: 1, constant: 0)
-        let bottomContrain = NSLayoutConstraint(item: self.hiddenView!, attribute: .bottom, relatedBy: .equal, toItem: UIApplication.shared.windows.last, attribute: .bottom, multiplier: 1, constant: 0)
-        let leftContrain = NSLayoutConstraint(item: self.hiddenView!, attribute: .left, relatedBy: .equal, toItem: UIApplication.shared.windows.last, attribute: .left, multiplier: 1, constant: 0)
-        let rightContrain = NSLayoutConstraint(item: self.hiddenView!, attribute: .right, relatedBy: .equal, toItem: UIApplication.shared.windows.last, attribute: .right, multiplier: 1, constant: 0)
-        UIApplication.shared.windows.last?.addSubview(self.hiddenView!)
-        self.hiddenView!.translatesAutoresizingMaskIntoConstraints = false
-        UIApplication.shared.windows.last?.addConstraints([topContrain, bottomContrain, leftContrain, rightContrain])
-        self.hiddenView!.isHidden = true
     }
     
     func getUserSession(_ previousToken:String? = nil) {
