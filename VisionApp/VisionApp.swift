@@ -513,7 +513,7 @@ extension VisionApp: ARSessionDelegate {
         let errorMessage = messages.compactMap({ $0 }).joined(separator: "\n")
         
         DispatchQueue.main.async {
-            self.displayErrorMessage(title: "The AR session failed.", message: errorMessage)
+            self.displayErrorMessage(title: "VisionApp", message: errorMessage)
         }
     }
     
