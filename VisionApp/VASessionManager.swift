@@ -1,5 +1,5 @@
 //
-//  SessionManager.swift
+//  VASessionManager.swift
 //  VisionApp
 //
 //  Created by Emilio Cubo Ruiz on 04/07/2019.
