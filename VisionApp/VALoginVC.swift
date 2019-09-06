@@ -34,7 +34,7 @@ class VALoginVC: UIViewController {
         self.loginEmailButton.isEnabled = false
         self.loginEmailButton.alpha = 0.4
         
-        self.cancelButton.setTitle(NSLocalizedString("Cancel", tableName: nil, bundle: Bundle(for: type(of: self)), value: "", comment: ""), for: .normal)
+        // self.cancelButton.setTitle(NSLocalizedString("Cancel", tableName: nil, bundle: Bundle(for: type(of: self)), value: "", comment: ""), for: .normal)
 
         /*
         let securityCodeTextField = UITextField()
