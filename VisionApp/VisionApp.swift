@@ -542,7 +542,7 @@ extension SCNMatrix4 {
 
 extension SCNReferenceNode {
     convenience init(named resourceName: String, loadImmediately: Bool = true) {
-        let url = Bundle(for: type(of: self)).url(forResource: resourceName, withExtension: "scn", subdirectory: "Models.scnassets")!
+        let url = Bundle(for: VisionApp.self).url(forResource: resourceName, withExtension: "scn", subdirectory: "Models.scnassets")!
         self.init(url: url)!
         if loadImmediately {
             self.load()
