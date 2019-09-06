@@ -1,5 +1,5 @@
 //
-//  VAClientConfiguration.swift
+//  VisionApp.swift
 //  VisionApp
 //
 //  Created by Emilio Cubo Ruiz on 04/09/2019.
