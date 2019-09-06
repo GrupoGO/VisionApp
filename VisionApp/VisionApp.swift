@@ -11,7 +11,7 @@ import ARKit
 import SceneKit
 
 public protocol VisionAppDelegate {
-    func userVAInfo(userToken: String)
+    func userVAInfo(userToken: String, userName:String)
     func cancelVALogin()
 }
 
@@ -147,7 +147,7 @@ public class VisionApp: NSObject {
             if let user = user, user.profiles.count > 0 {
                 VASessionManager.shared.setUserInfo(user)
                 if previousToken == nil {
-                    self.delegate?.userVAInfo(userToken: "\(user.userCode).\(user.secret)")
+                    self.delegate?.userVAInfo(userToken: "\(user.userCode).\(user.secret)", userName: "\(user.firstname) \(user.lastname)")
                 } else {
                     self.initScene()
                 }
