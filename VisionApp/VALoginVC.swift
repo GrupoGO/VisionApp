@@ -24,20 +24,22 @@ class VALoginVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.userNameTextField.textContentType = .username
+        // self.userNameTextField.textContentType = .username
         self.userNameTextField.delegate = self
         
-        self.passwordTextField.textContentType = .password
+        // self.passwordTextField.textContentType = .password
         // self.passwordTextField.passwordRules = UITextInputPasswordRules(descriptor: "minlength: 6;")
         self.passwordTextField.delegate = self
         
         self.loginEmailButton.isEnabled = false
         self.loginEmailButton.alpha = 0.4
-        
+
+        /*
         let securityCodeTextField = UITextField()
         if #available(iOS 12.0, *) {
             securityCodeTextField.textContentType = .oneTimeCode
         }
+        */
 
         let tapGestureRecognizer : UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyBoard))
         self.view.addGestureRecognizer(tapGestureRecognizer)
