@@ -90,7 +90,7 @@ Pod::Spec.new do |s|
   #  Not including the public_header_files will make all headers public.
   #
 
-  s.source_files = 'Pod/Classes/**/*.{swift}'
+  s.source_files = 'VisionApp'
   s.resource_bundles = {
     'VisionApp' => ['Pod/Classes/**/*.{storyboard,xib,xcassets,json,imageset,png}']
   }
