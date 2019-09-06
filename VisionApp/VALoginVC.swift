@@ -33,6 +33,8 @@ class VALoginVC: UIViewController {
         
         self.loginEmailButton.isEnabled = false
         self.loginEmailButton.alpha = 0.4
+        
+        self.cancelButton.setTitle(NSLocalizedString("Cancel", tableName: nil, bundle: Bundle(for: type(of: self)), value: "", comment: ""), for: .normal)
 
         /*
         let securityCodeTextField = UITextField()
@@ -59,19 +61,20 @@ class VALoginVC: UIViewController {
     }
 
     @IBAction func revoceryPassword(_ sender: UIButton) {
-        let alertController = UIAlertController(title: "Recovery password", message: nil, preferredStyle: .alert)
+        
+        let alertController = UIAlertController(title: NSLocalizedString("Recovery password", tableName: nil, bundle: Bundle(for: type(of: self)), value: "", comment: ""), message: nil, preferredStyle: .alert)
 
-        let recoveryPassAction = UIAlertAction(title: "Done", style: .default) { (_) in
+        let recoveryPassAction = UIAlertAction(title: NSLocalizedString("Done", tableName: nil, bundle: Bundle(for: type(of: self)), value: "", comment: ""), style: .default) { (_) in
             let mailTextField = alertController.textFields![0] as UITextField
             self.recoveryPassword(mailTextField.text!)
         }
         recoveryPassAction.isEnabled = false
 
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (_) in }
+        let cancelAction = UIAlertAction(title: NSLocalizedString("Cancel", tableName: nil, bundle: Bundle(for: type(of: self)), value: "", comment: ""), style: .cancel) { (_) in }
 
         alertController.addTextField { (textField) in
             textField.text = ""
-            textField.placeholder = "E-Mail"
+            textField.placeholder = NSLocalizedString("E-Mail", tableName: nil, bundle: Bundle(for: type(of: self)), value: "", comment: "")
             textField.keyboardType = .emailAddress
             NotificationCenter.default.addObserver(forName: UITextField.textDidChangeNotification, object: textField, queue: OperationQueue.main) { (notification) in
                 recoveryPassAction.isEnabled = self.isValidEmail(textField.text!)
@@ -87,7 +90,7 @@ class VALoginVC: UIViewController {
     func recoveryPassword(_ email:String) {
         VARequestManager.shared.recoveryPassword(email: email) { (success, message) in
             if success {
-                self.alertSuccessMessage(message: "An email has been sent to retrieve the password")
+                self.alertSuccessMessage(message: NSLocalizedString("An email has been sent to retrieve the password", tableName: nil, bundle: Bundle(for: type(of: self)), value: "", comment: ""))
             } else {
                 self.alertErrorMessage(message: message)
             }
@@ -130,15 +133,15 @@ class VALoginVC: UIViewController {
     }
     
     func alertSuccessMessage(message:String) {
-        let alertController = UIAlertController(title: "Success", message: message, preferredStyle: .alert)
-        let doneAction = UIAlertAction(title: "Done", style: .cancel, handler: nil)
+        let alertController = UIAlertController(title: NSLocalizedString("Success", tableName: nil, bundle: Bundle(for: type(of: self)), value: "", comment: ""), message: message, preferredStyle: .alert)
+        let doneAction = UIAlertAction(title: NSLocalizedString("Done", tableName: nil, bundle: Bundle(for: type(of: self)), value: "", comment: ""), style: .cancel, handler: nil)
         alertController.addAction(doneAction)
         self.present(alertController, animated: true, completion: nil)
     }
 
     func alertErrorMessage(message:String) {
-        let alertController = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
-        let doneAction = UIAlertAction(title: "Done", style: .cancel, handler: nil)
+        let alertController = UIAlertController(title: NSLocalizedString("Error", tableName: nil, bundle: Bundle(for: type(of: self)), value: "", comment: ""), message: message, preferredStyle: .alert)
+        let doneAction = UIAlertAction(title: NSLocalizedString("Done", tableName: nil, bundle: Bundle(for: type(of: self)), value: "", comment: ""), style: .cancel, handler: nil)
         alertController.addAction(doneAction)
         self.present(alertController, animated: true, completion: nil)
     }
