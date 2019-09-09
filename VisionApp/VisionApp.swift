@@ -95,9 +95,9 @@ public class VisionApp: NSObject {
                     let storyboard = UIStoryboard(name: "Main", bundle: Bundle(for: type(of: self)))
                     guard let loginViewController = storyboard.instantiateViewController(withIdentifier: "loginVC") as? VALoginVC else { return }
                     loginViewController.modalPresentationStyle = .formSheet
-                    if #available(iOS 13.0, *) {
-                        loginViewController.isModalInPresentation = true
-                    }
+//                    if #available(iOS 13.0, *) {
+//                        loginViewController.isModalInPresentation = true
+//                    }
                     UIApplication.shared.windows.last?.rootViewController?.present(loginViewController, animated: true, completion: nil)
                 })
                 alertController.addAction(doneAction)
@@ -184,8 +184,12 @@ public class VisionApp: NSObject {
             }
         }
     }
+    
+    public func profilesNumber() -> Int {
+        return self.currentUser?.profiles.count ?? 0
+    }
 
-    func profileSelection() {
+    public func profileSelection() {
         if let user = self.currentUser {
             let alertController = UIAlertController(title: "Select profile", message: nil, preferredStyle: .alert)
             for profile in user.profiles {
@@ -202,6 +206,12 @@ public class VisionApp: NSObject {
                 alertController.addAction(profileAction)
             }
             
+            let cancelAction = UIAlertAction(title: NSLocalizedString("Cancel", tableName: nil, bundle: Bundle(for: type(of: self)), value: "", comment: ""), style: .cancel) { (_) in
+                self.delegate?.cancelVALogin()
+                self.stopTracking()
+            }
+            alertController.addAction(cancelAction)
+
             UIApplication.shared.windows.last?.rootViewController?.present(alertController, animated: true, completion: nil)
         }
     }
