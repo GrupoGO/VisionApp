@@ -173,7 +173,7 @@ public class VisionApp: NSObject {
                         UserDefaults.standard.set(self.lastSecond!, forKey: "initDate\(profile.accountId)")
                     }
                 } else {
-                    self.profileSelection()
+                    self.profileSelection(previousToken)
                 }
                 
             } else if let previousToken = previousToken {
@@ -194,14 +194,14 @@ public class VisionApp: NSObject {
         return self.currentUser?.profiles.count ?? 0
     }
 
-    public func profileSelection() {
+    public func profileSelection(_ userToken:String? = nil) {
         if let user = self.currentUser {
             let alertController = UIAlertController(title: "Select profile", message: nil, preferredStyle: .alert)
             for profile in user.profiles {
                 let profileAction = UIAlertAction(title: profile.name, style: .default) { (_) in
                     UserDefaults.standard.set(profile.code, forKey: "VAcurrentUserProfileCode")
                     self.currentProfile = profile
-                    self.setScene(previousToken, user: user)
+                    self.setScene(userToken, user: user)
                     if let lastSecond = UserDefaults.standard.object(forKey: "initDate\(profile.accountId)") as? Date {
                         self.lastSecond = lastSecond
                     } else {
