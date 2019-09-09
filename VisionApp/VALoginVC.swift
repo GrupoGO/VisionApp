@@ -24,7 +24,7 @@ class VALoginVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.userNameTextField.textContentType = .nickname
+        self.userNameTextField.textContentType = .username
         self.userNameTextField.delegate = self
         
         self.passwordTextField.textContentType = .password
