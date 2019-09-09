@@ -8,7 +8,6 @@
 
 import UIKit
 
-@available(iOS 11.0, *)
 class VALoginVC: UIViewController {
     
     @IBOutlet weak var logoImageView: UIImageView!
@@ -160,7 +159,6 @@ class VALoginVC: UIViewController {
 }
 
 
-@available(iOS 11.0, *)
 extension VALoginVC: UITextFieldDelegate {
     
     func runAfterDelay(_ delay: TimeInterval, block: @escaping ()->()) {
