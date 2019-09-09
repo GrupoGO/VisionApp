@@ -190,8 +190,13 @@ public class VisionApp: NSObject {
         }
     }
     
-    public func profilesNumber() -> Int {
-        return self.currentUser?.profiles.count ?? 0
+    public var profilesNumber: Int {
+        get {
+            if let user = VisionApp.shared.currentUser {
+                return user.profiles.count
+            }
+            return 0
+        }
     }
 
     public func profileSelection(_ userToken:String? = nil) {
