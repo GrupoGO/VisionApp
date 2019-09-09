@@ -15,6 +15,7 @@ public protocol VisionAppDelegate {
     func cancelVALogin()
 }
 
+@available(iOS 11.0, *)
 public class VisionApp: NSObject {
 
     public static let shared = VisionApp()
@@ -358,12 +359,14 @@ public class VisionApp: NSObject {
     
 }
 
+@available(iOS 11.0, *)
 protocol VirtualContentController: ARSCNViewDelegate {
     var contentNode: SCNNode? { get set }
     func renderer(_ renderer: SCNSceneRenderer, nodeFor anchor: ARAnchor) -> SCNNode?
     func renderer(_ renderer: SCNSceneRenderer, didUpdate node: SCNNode, for anchor: ARAnchor)
 }
 
+@available(iOS 11.0, *)
 extension VisionApp: ARSCNViewDelegate {
     
     public func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
@@ -502,6 +505,7 @@ extension VisionApp: ARSCNViewDelegate {
     
 }
 
+@available(iOS 11.0, *)
 extension VisionApp: ARSessionDelegate {
     
     public func session(_ session: ARSession, didFailWithError error: Error) {
@@ -548,6 +552,7 @@ extension SCNMatrix4 {
 }
 
 extension SCNReferenceNode {
+    @available(iOS 11.0, *)
     convenience init(named resourceName: String, loadImmediately: Bool = true) {
         let url = Bundle(for: VisionApp.self).url(forResource: resourceName, withExtension: "scn", subdirectory: "Models.scnassets")!
         self.init(url: url)!
@@ -651,11 +656,13 @@ extension UIDevice {
 enum VirtualContentType: Int {
     case transforms
     
+    @available(iOS 11.0, *)
     func makeController() -> VirtualContentController {
         return TransformVisualization()
     }
 }
 
+@available(iOS 11.0, *)
 class TransformVisualization: NSObject, VirtualContentController {
     
     var contentNode: SCNNode?
@@ -665,6 +672,7 @@ class TransformVisualization: NSObject, VirtualContentController {
     lazy var leftEyeNode = SCNReferenceNode(named: "coordinateOrigin")
     
     /// - Tag: ARNodeTracking
+    @available(iOS 11.0, *)
     func renderer(_ renderer: SCNSceneRenderer, nodeFor anchor: ARAnchor) -> SCNNode? {
         // This class adds AR content only for face anchors.
         guard anchor is ARFaceAnchor else { return nil }
@@ -679,6 +687,7 @@ class TransformVisualization: NSObject, VirtualContentController {
         return contentNode
     }
     
+    @available(iOS 11.0, *)
     func renderer(_ renderer: SCNSceneRenderer, didUpdate node: SCNNode, for anchor: ARAnchor) {
         guard let faceAnchor = anchor as? ARFaceAnchor
             else { return }
@@ -689,6 +698,7 @@ class TransformVisualization: NSObject, VirtualContentController {
         }
     }
     
+    @available(iOS 11.0, *)
     func addEyeTransformNodes() {
         guard let anchorNode = contentNode else { return }
         
