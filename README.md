@@ -30,7 +30,7 @@ func application(_ application: UIApplication, didFinishLaunchingWithOptions lau
 
 extension AppDelegate: VisionAppDelegate {
 
-    func userVAInfo(userToken: String, userName:String) {
+    func userVAInfo(userToken: String, userName:String, userProfile:String?) {
         // MARK: - TODO Save userToken from userName to link with your user
     }
     
