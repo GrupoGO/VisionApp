@@ -61,5 +61,5 @@ extension AppDelegate: VisionAppDelegate {
     let totalProfiles = VisionApp.shared.profilesNumber()
 
     // MARK: - Launch profile selection
-    VisionApp.shared.profileSelection()
+    VisionApp.shared.profileSelection() // only if user profiles number > 1
 ```
