@@ -196,29 +196,42 @@ public class VisionApp: NSObject {
 
     public func profileSelection(_ userToken:String? = nil) {
         if let user = self.currentUser {
-            let alertController = UIAlertController(title: "Select profile", message: nil, preferredStyle: .alert)
-            for profile in user.profiles {
-                let profileAction = UIAlertAction(title: profile.name, style: .default) { (_) in
-                    UserDefaults.standard.set(profile.code, forKey: "VAcurrentUserProfileCode")
-                    self.currentProfile = profile
-                    self.setScene(userToken, user: user)
-                    if let lastSecond = UserDefaults.standard.object(forKey: "initDate\(profile.accountId)") as? Date {
-                        self.lastSecond = lastSecond
-                    } else {
-                        self.lastSecond = Date()
-                        UserDefaults.standard.set(self.lastSecond!, forKey: "initDate\(profile.accountId)")
-                    }
+            if user.profiles.count == 1 {
+                let profile = user.profiles[0]
+                UserDefaults.standard.set(profile.code, forKey: "VAcurrentUserProfileCode")
+                self.currentProfile = profile
+                self.setScene(userToken, user: user)
+                if let lastSecond = UserDefaults.standard.object(forKey: "initDate\(profile.accountId)") as? Date {
+                    self.lastSecond = lastSecond
+                } else {
+                    self.lastSecond = Date()
+                    UserDefaults.standard.set(self.lastSecond!, forKey: "initDate\(profile.accountId)")
                 }
-                alertController.addAction(profileAction)
+            } else if user.profiles.count > 1 {
+                let alertController = UIAlertController(title: "Select profile", message: nil, preferredStyle: .alert)
+                for profile in user.profiles {
+                    let profileAction = UIAlertAction(title: profile.name, style: .default) { (_) in
+                        UserDefaults.standard.set(profile.code, forKey: "VAcurrentUserProfileCode")
+                        self.currentProfile = profile
+                        self.setScene(userToken, user: user)
+                        if let lastSecond = UserDefaults.standard.object(forKey: "initDate\(profile.accountId)") as? Date {
+                            self.lastSecond = lastSecond
+                        } else {
+                            self.lastSecond = Date()
+                            UserDefaults.standard.set(self.lastSecond!, forKey: "initDate\(profile.accountId)")
+                        }
+                    }
+                    alertController.addAction(profileAction)
+                }
+                
+                let cancelAction = UIAlertAction(title: NSLocalizedString("Cancel", tableName: nil, bundle: Bundle(for: type(of: self)), value: "", comment: ""), style: .cancel) { (_) in
+                    self.delegate?.cancelVALogin()
+                    self.stopTracking()
+                }
+                alertController.addAction(cancelAction)
+                
+                UIApplication.shared.windows.last?.rootViewController?.present(alertController, animated: true, completion: nil)
             }
-            
-            let cancelAction = UIAlertAction(title: NSLocalizedString("Cancel", tableName: nil, bundle: Bundle(for: type(of: self)), value: "", comment: ""), style: .cancel) { (_) in
-                self.delegate?.cancelVALogin()
-                self.stopTracking()
-            }
-            alertController.addAction(cancelAction)
-
-            UIApplication.shared.windows.last?.rootViewController?.present(alertController, animated: true, completion: nil)
         }
     }
 
