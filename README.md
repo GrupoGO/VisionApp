@@ -54,3 +54,12 @@ extension AppDelegate: VisionAppDelegate {
     // MARK: - Finish session and logout VisionApp user
     VisionApp.shared.stopTracking()
 ```
+
+### Change user profile
+```swift
+    // MARK: - Returns the number of user profiles
+    let totalProfiles = VisionApp.shared.profilesNumber()
+
+    // MARK: - Launch profile selection
+    VisionApp.shared.profileSelection()
+```
