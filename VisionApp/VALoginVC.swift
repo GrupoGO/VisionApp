@@ -21,26 +21,32 @@ class VALoginVC: UIViewController {
     @IBOutlet weak var activityLoader: UIActivityIndicatorView!
     
 
+    var passwordValue:String = ""
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.userNameTextField.textContentType = .username
+        self.userNameTextField.textContentType = .emailAddress
         self.userNameTextField.delegate = self
+
+        self.passwordTextField.isSecureTextEntry = false
+        if #available(iOS 12.0, *) {
+            self.passwordTextField.textContentType = .oneTimeCode
+        } else if #available(iOS 10.0, *) {
+            self.passwordTextField.textContentType = UITextContentType(rawValue: "")
+        } else {
+            self.passwordTextField.textContentType = .password
+        }
         
-        self.passwordTextField.textContentType = .password
         // self.passwordTextField.passwordRules = UITextInputPasswordRules(descriptor: "minlength: 6;")
         self.passwordTextField.delegate = self
         
         self.loginEmailButton.isEnabled = false
         self.loginEmailButton.alpha = 0.4
         
-        // self.cancelButton.setTitle(NSLocalizedString("Cancel", tableName: nil, bundle: Bundle(for: type(of: self)), value: "", comment: ""), for: .normal)
-
-        let securityCodeTextField = UITextField()
-        if #available(iOS 12.0, *) {
-            securityCodeTextField.textContentType = .oneTimeCode
-        }
-
+        
+        
         let tapGestureRecognizer : UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyBoard))
         self.view.addGestureRecognizer(tapGestureRecognizer)
         
@@ -188,6 +194,9 @@ extension VALoginVC: UITextFieldDelegate {
         var txtUser:NSString = (self.userNameTextField.text ?? "") as NSString
         var txtPassword:NSString = (self.passwordTextField.text ?? "") as NSString
         if textField == self.passwordTextField {
+            if !self.passwordTextField.isSecureTextEntry {
+                self.passwordTextField.isSecureTextEntry = true
+            }
             txtPassword = (self.passwordTextField.text ?? "") as NSString
             txtPassword = txtPassword.replacingCharacters(in: range, with: string) as NSString
         } else {
