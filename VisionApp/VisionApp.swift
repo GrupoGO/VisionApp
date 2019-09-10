@@ -95,9 +95,9 @@ public class VisionApp: NSObject {
                     let storyboard = UIStoryboard(name: "Main", bundle: Bundle(for: type(of: self)))
                     guard let loginViewController = storyboard.instantiateViewController(withIdentifier: "loginVC") as? VALoginVC else { return }
                     loginViewController.modalPresentationStyle = .formSheet
-//                    if #available(iOS 13.0, *) {
-//                        loginViewController.isModalInPresentation = true
-//                    }
+                    if #available(iOS 13.0, *) {
+                        loginViewController.isModalInPresentation = true
+                    }
                     UIApplication.shared.windows.last?.rootViewController?.present(loginViewController, animated: true, completion: nil)
                 })
                 alertController.addAction(doneAction)
