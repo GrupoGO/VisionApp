@@ -28,6 +28,7 @@ class VALoginVC: UIViewController {
         self.userNameTextField.delegate = self
 
         self.passwordTextField.isSecureTextEntry = false
+        self.passwordTextField.autocorrectionType = .no
         if #available(iOS 12.0, *) {
             self.passwordTextField.textContentType = .oneTimeCode
         } else if #available(iOS 10.0, *) {
