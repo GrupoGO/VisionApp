@@ -21,9 +21,6 @@ class VALoginVC: UIViewController {
     @IBOutlet weak var activityLoader: UIActivityIndicatorView!
     
 
-    var passwordValue:String = ""
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
