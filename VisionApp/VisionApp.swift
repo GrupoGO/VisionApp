@@ -183,7 +183,7 @@ public class VisionApp: NSObject {
     }
     
     func setScene(_ previousToken:String? = nil, user:VAUser) {
-        self.delegate?.userVAInfo(userToken: "\(user.userCode).\(user.secret)", userName: "\(user.firstname) \(user.lastname)", userProfile: self.currentProfile?.alias)
+        self.delegate?.userVAInfo(userToken: "\(user.userCode).\(user.secret)", userName: "\(user.firstname) \(user.lastname)", userProfile: self.currentProfile?.name)
         if previousToken != nil {
             self.initScene()
         }
