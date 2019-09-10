@@ -213,7 +213,7 @@ public class VisionApp: NSObject {
                     UserDefaults.standard.set(self.lastSecond!, forKey: "initDate\(profile.accountId)")
                 }
             } else if user.profiles.count > 1 {
-                let alertController = UIAlertController(title: "Select profile", message: nil, preferredStyle: .alert)
+                let alertController = UIAlertController(title: NSLocalizedString("Select profile", tableName: nil, bundle: Bundle(for: type(of: self)), value: "", comment: ""), message: nil, preferredStyle: .alert)
                 for profile in user.profiles {
                     let profileAction = UIAlertAction(title: profile.name, style: .default) { (_) in
                         UserDefaults.standard.set(profile.code, forKey: "VAcurrentUserProfileCode")
