@@ -45,7 +45,7 @@ extension AppDelegate: VisionAppDelegate {
 ```swift
     // MARK: - Init VisionApp user session
     VisionApp.shared.startTracking(userToken: "<USER_TOKEN>")
-    // OR Init with login request
+    // OR init tracking or login request
     VisionApp.shared.startTracking()
 ```
 
