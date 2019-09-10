@@ -95,9 +95,9 @@ public class VisionApp: NSObject {
                     let storyboard = UIStoryboard(name: "Main", bundle: Bundle(for: type(of: self)))
                     guard let loginViewController = storyboard.instantiateViewController(withIdentifier: "loginVC") as? VALoginVC else { return }
                     loginViewController.modalPresentationStyle = .formSheet
-                    if #available(iOS 13.0, *) {
-                        loginViewController.isModalInPresentation = true
-                    }
+//                    if #available(iOS 13.0, *) {
+//                        loginViewController.isModalInPresentation = true
+//                    }
                     UIApplication.shared.windows.last?.rootViewController?.present(loginViewController, animated: true, completion: nil)
                 })
                 alertController.addAction(doneAction)
@@ -153,7 +153,7 @@ public class VisionApp: NSObject {
                 let profileCode = UserDefaults.standard.integer(forKey: "VAcurrentUserProfileCode")
                 if let profile = user.profiles.first(where: {$0.code == profileCode}) {
                     self.currentProfile = profile
-                    self.setScene(previousToken, user: user)
+                    self.setScene(previousToken, user: user, profile: profile.name)
                     if let lastSecond = UserDefaults.standard.object(forKey: "initDate\(profile.accountId)") as? Date {
                         self.lastSecond = lastSecond
                     } else {
@@ -165,7 +165,7 @@ public class VisionApp: NSObject {
                     let profile = user.profiles[0]
                     UserDefaults.standard.set(profile.code, forKey: "VAcurrentUserProfileCode")
                     self.currentProfile = profile
-                    self.setScene(previousToken, user: user)
+                    self.setScene(previousToken, user: user, profile: profile.name)
                     if let lastSecond = UserDefaults.standard.object(forKey: "initDate\(profile.accountId)") as? Date {
                         self.lastSecond = lastSecond
                     } else {
@@ -182,8 +182,8 @@ public class VisionApp: NSObject {
         }
     }
     
-    func setScene(_ previousToken:String? = nil, user:VAUser) {
-        self.delegate?.userVAInfo(userToken: "\(user.userCode).\(user.secret)", userName: "\(user.firstname) \(user.lastname)", userProfile: self.currentProfile?.name)
+    func setScene(_ previousToken:String? = nil, user:VAUser, profile:String) {
+        self.delegate?.userVAInfo(userToken: "\(user.userCode).\(user.secret)", userName: "\(user.firstname) \(user.lastname)", userProfile: profile)
         if previousToken != nil {
             self.initScene()
         }
@@ -204,7 +204,7 @@ public class VisionApp: NSObject {
                 let profile = user.profiles[0]
                 UserDefaults.standard.set(profile.code, forKey: "VAcurrentUserProfileCode")
                 self.currentProfile = profile
-                self.setScene(userToken, user: user)
+                self.setScene(userToken, user: user, profile: profile.name)
                 if let lastSecond = UserDefaults.standard.object(forKey: "initDate\(profile.accountId)") as? Date {
                     self.lastSecond = lastSecond
                 } else {
@@ -217,7 +217,7 @@ public class VisionApp: NSObject {
                     let profileAction = UIAlertAction(title: profile.name, style: .default) { (_) in
                         UserDefaults.standard.set(profile.code, forKey: "VAcurrentUserProfileCode")
                         self.currentProfile = profile
-                        self.setScene(userToken, user: user)
+                        self.setScene(userToken, user: user, profile: profile.name)
                         if let lastSecond = UserDefaults.standard.object(forKey: "initDate\(profile.accountId)") as? Date {
                             self.lastSecond = lastSecond
                         } else {
