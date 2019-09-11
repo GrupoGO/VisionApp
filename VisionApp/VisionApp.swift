@@ -11,7 +11,7 @@ import ARKit
 import SceneKit
 
 public protocol VisionAppDelegate {
-    func userVAInfo(userToken: String, userName:String, userProfile:String?)
+    func userVAInfo(userToken: String, userName:String, profileId:Int?, profileName:String?)
     func cancelVALogin()
 }
 
@@ -153,7 +153,7 @@ public class VisionApp: NSObject {
                 let profileCode = UserDefaults.standard.integer(forKey: "VAcurrentUserProfileCode")
                 if let profile = user.profiles.first(where: {$0.code == profileCode}) {
                     self.currentProfile = profile
-                    self.setScene(previousToken, user: user, profile: profile.name)
+                    self.setScene(previousToken, user: user, profile: profile)
                     if let lastSecond = UserDefaults.standard.object(forKey: "initDate\(profile.accountId)") as? Date {
                         self.lastSecond = lastSecond
                     } else {
@@ -165,7 +165,7 @@ public class VisionApp: NSObject {
                     let profile = user.profiles[0]
                     UserDefaults.standard.set(profile.code, forKey: "VAcurrentUserProfileCode")
                     self.currentProfile = profile
-                    self.setScene(previousToken, user: user, profile: profile.name)
+                    self.setScene(previousToken, user: user, profile: profile)
                     if let lastSecond = UserDefaults.standard.object(forKey: "initDate\(profile.accountId)") as? Date {
                         self.lastSecond = lastSecond
                     } else {
@@ -182,8 +182,8 @@ public class VisionApp: NSObject {
         }
     }
     
-    func setScene(_ previousToken:String? = nil, user:VAUser, profile:String) {
-        self.delegate?.userVAInfo(userToken: "\(user.userCode).\(user.secret)", userName: "\(user.firstname) \(user.lastname)", userProfile: profile)
+    func setScene(_ previousToken:String? = nil, user:VAUser, profile:VAProfile) {
+        self.delegate?.userVAInfo(userToken: "\(user.userCode).\(user.secret)", userName: "\(user.firstname) \(user.lastname)", profileId: profile.code, profileName: profile.name)
         if previousToken != nil {
             self.initScene()
         }
@@ -204,7 +204,7 @@ public class VisionApp: NSObject {
                 let profile = user.profiles[0]
                 UserDefaults.standard.set(profile.code, forKey: "VAcurrentUserProfileCode")
                 self.currentProfile = profile
-                self.setScene(userToken, user: user, profile: profile.name)
+                self.setScene(userToken, user: user, profile: profile)
                 if let lastSecond = UserDefaults.standard.object(forKey: "initDate\(profile.accountId)") as? Date {
                     self.lastSecond = lastSecond
                 } else {
@@ -217,7 +217,7 @@ public class VisionApp: NSObject {
                     let profileAction = UIAlertAction(title: profile.name, style: .default) { (_) in
                         UserDefaults.standard.set(profile.code, forKey: "VAcurrentUserProfileCode")
                         self.currentProfile = profile
-                        self.setScene(userToken, user: user, profile: profile.name)
+                        self.setScene(userToken, user: user, profile: profile)
                         if let lastSecond = UserDefaults.standard.object(forKey: "initDate\(profile.accountId)") as? Date {
                             self.lastSecond = lastSecond
                         } else {
