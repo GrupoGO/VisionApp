@@ -23,7 +23,7 @@ func application(_ application: UIApplication, didFinishLaunchingWithOptions lau
     // ...
 
     // MARK: - VisionApp configuration
-    VisionApp.shared.configuration(token: <YOUR_TOKEN>, secret: "<YOUR_SECRET>", delegate: self)
+    VisionApp.shared.configuration(token: <YOUR_TOKEN>, secret: <YOUR_SECRET>, delegate: self)
 
     // ...
 }
@@ -44,7 +44,7 @@ extension AppDelegate: VisionAppDelegate {
 ### Init VisionApp tracking
 ```swift
     // MARK: - Init VisionApp user session
-    VisionApp.shared.startTracking(userToken: "<USER_TOKEN>", userProfile: <PROFILE_ID>)
+    VisionApp.shared.startTracking(userToken: <USER_TOKEN>, userProfile: <PROFILE_ID>)
     // OR init tracking or login request
     VisionApp.shared.startTracking()
 ```
