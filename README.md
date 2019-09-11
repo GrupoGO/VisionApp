@@ -23,7 +23,7 @@ func application(_ application: UIApplication, didFinishLaunchingWithOptions lau
     // ...
 
     // MARK: - VisionApp configuration
-    VisionApp.shared.configuration(token: "<YOUR_TOKEN>", secret: "<YOUR_SECRET>", delegate: self)
+    VisionApp.shared.configuration(token: <YOUR_TOKEN>, secret: "<YOUR_SECRET>", delegate: self)
 
     // ...
 }
