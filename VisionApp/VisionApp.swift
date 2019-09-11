@@ -70,12 +70,14 @@ public class VisionApp: NSObject {
         }
     }
     
-    public func startTracking(userToken: String? = nil) {
-        if ARFaceTrackingConfiguration.isSupported, let userToken = userToken {
+    public func startTracking(userToken: String? = nil, userProfile: Int? = nil) {
+        if ARFaceTrackingConfiguration.isSupported, let userToken = userToken, let userProfile = userProfile {
             DispatchQueue.main.async {
                 let previousToken = UserDefaults.standard.string(forKey: "VAuserToken")
+                let previousProfile = UserDefaults.standard.integer(forKey: "VAcurrentUserProfileCode")
                 UserDefaults.standard.set(userToken, forKey: "VAuserToken")
-                self.getUserSession(previousToken)
+                UserDefaults.standard.set(userProfile, forKey: "VAcurrentUserProfileCode")
+                self.getUserSession(previousToken, previousProfile: previousProfile)
             }
         } else if ARFaceTrackingConfiguration.isSupported, VASessionManager.shared.currentUser != nil {
 
@@ -145,7 +147,7 @@ public class VisionApp: NSObject {
         
     }
     
-    func getUserSession(_ previousToken:String? = nil) {
+    func getUserSession(_ previousToken:String? = nil, previousProfile:Int? = nil) {
         VARequestManager.shared.getSessionUser { (success, message, user) in
             if let user = user, user.profiles.count > 0 {
                 VASessionManager.shared.setUserInfo(user)
@@ -153,7 +155,7 @@ public class VisionApp: NSObject {
                 let profileCode = UserDefaults.standard.integer(forKey: "VAcurrentUserProfileCode")
                 if let profile = user.profiles.first(where: {$0.code == profileCode}) {
                     self.currentProfile = profile
-                    self.setScene(previousToken, user: user, profile: profile)
+                    self.setScene(previousToken, previousProfile: previousProfile, user: user, profile: profile)
                     if let lastSecond = UserDefaults.standard.object(forKey: "initDate\(profile.accountId)") as? Date {
                         self.lastSecond = lastSecond
                     } else {
@@ -165,7 +167,7 @@ public class VisionApp: NSObject {
                     let profile = user.profiles[0]
                     UserDefaults.standard.set(profile.code, forKey: "VAcurrentUserProfileCode")
                     self.currentProfile = profile
-                    self.setScene(previousToken, user: user, profile: profile)
+                    self.setScene(previousToken, previousProfile: previousProfile, user: user, profile: profile)
                     if let lastSecond = UserDefaults.standard.object(forKey: "initDate\(profile.accountId)") as? Date {
                         self.lastSecond = lastSecond
                     } else {
@@ -178,11 +180,12 @@ public class VisionApp: NSObject {
                 
             } else if let previousToken = previousToken {
                 UserDefaults.standard.set(previousToken, forKey: "VAuserToken")
+                UserDefaults.standard.set(previousToken, forKey: "VAcurrentUserProfileCode")
             }
         }
     }
     
-    func setScene(_ previousToken:String? = nil, user:VAUser, profile:VAProfile) {
+    func setScene(_ previousToken:String? = nil, previousProfile:Int? = nil, user:VAUser, profile:VAProfile) {
         self.delegate?.userVAInfo(userToken: "\(user.userCode).\(user.secret)", userName: "\(user.firstname) \(user.lastname)", profileId: profile.code, profileName: profile.name)
         if previousToken != nil {
             self.initScene()
