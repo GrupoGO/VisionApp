@@ -24,7 +24,7 @@ class VALoginVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if let imageLogo = UIImage(named: NSLocalizedString("ic_logo_en", tableName: nil, bundle: Bundle(for: type(of: self)), value: "", comment: "")) {
+        if let imageLogo = UIImage(named: NSLocalizedString("ic_logo_en", tableName: nil, bundle: Bundle(for: type(of: self)), value: "", comment: ""), in: Bundle(for: type(of: self)), compatibleWith: nil) {
             self.logoImageView.image = imageLogo
         }
 
