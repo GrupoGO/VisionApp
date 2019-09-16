@@ -24,6 +24,10 @@ class VALoginVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        if let imageLogo = UIImage(named: NSLocalizedString("ic_logo_en", tableName: nil, bundle: Bundle(for: type(of: self)), value: "", comment: "")) {
+            self.logoImageView.image = imageLogo
+        }
+
         self.userNameTextField.textContentType = .emailAddress
         self.userNameTextField.delegate = self
 
