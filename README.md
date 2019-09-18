@@ -63,3 +63,16 @@ extension AppDelegate: VisionAppDelegate {
     // MARK: - Launch profile selection
     VisionApp.shared.profileSelection() // only if user profiles number > 1
 ```
+
+### Apple review FAQs
+
+**What information is your app collecting using the TrueDepth API?**
+_ _Information is being collected on the habit of using the mobile device, in terms of distance from the screen to the user's face, and ambient lighting._ _
+
+**For what purposes are you collecting this information? Please provide a complete and clear explanation of all planned uses of this data.**
+_ _The user who grants our app permissions to collect this data, does so by linking his VisionApp account with the application account, to:
+a) That you are shown alerts in our app when the distance you are using the terminal is too short (less than 30 cm)
+b) Collect the usage data of out app in the user's VisionApp account_ _
+
+**Will the data be shared with any third parties? Where will this information be stored?**
+_ _In the event that the user links his VisionApp account, with that of our app, the device usage data will be stored on the VisionApp servers, for the exploitation of the same by the user. Our app at no time, makes use of this data, if not that it delivers them to the VisionApp API so that the user can dispose of them, and make use of them in the terms that VisionApp informs at the time of create your account at http://visionapp.org_ _
