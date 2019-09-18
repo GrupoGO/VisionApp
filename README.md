@@ -80,7 +80,7 @@ _Information is being collected on the habit of using the mobile device, in term
 
 _The user who grants our app permissions to collect this data, does so by linking his VisionApp account with the application account, to:_
 
-_a) That you are shown alerts in our app when the distance you are using the terminal is too short (less than 30 cm)_
+_a) That you are shown alerts in our app when the distance you are using the device is too short (less than 30 cm)_
 
 _b) Collect the usage data of out app in the user's VisionApp account_
 
