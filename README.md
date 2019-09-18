@@ -86,7 +86,7 @@ _b) Collect the usage data of out app in the user's VisionApp account_
 
 **Will the data be shared with any third parties? Where will this information be stored?**
 
-_In the event that the user links his VisionApp account, with that of our app, the device usage data will be stored on the VisionApp servers, for the exploitation of the same by the user. Our app at no time, makes use of this data, if not that it delivers them to the VisionApp API so that the user can dispose of them, and make use of them in the terms that VisionApp informs at the time of create your account at http://visionapp.org_
+_In the event that the user links his VisionApp account, with that of our app, the device usage data will be stored on the VisionApp servers, for the exploitation of the same by the user. Our app at no time, makes use of this data, if not that it delivers them to the VisionApp API so that the user can dispose of them, and make use of them in the terms that VisionApp informs at the time of create the account at http://visionapp.org_
 
 ### Privacy Policy
 
