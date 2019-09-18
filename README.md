@@ -84,9 +84,14 @@ _In the event that the user links his VisionApp account, with that of our app, t
 
 ### App Privacy Policy
 
-Your app Privacy Policy needs to include all of the required information explaining: 
+Your app Privacy Policy needs to include all of the required information explaining:
+
 • collection
+
 • use
+
 • disclosure
+
 • sharing
+
 • and retention of user’s face data
