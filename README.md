@@ -71,7 +71,9 @@ _Information is being collected on the habit of using the mobile device, in term
 
 **For what purposes are you collecting this information? Please provide a complete and clear explanation of all planned uses of this data.**
 _The user who grants our app permissions to collect this data, does so by linking his VisionApp account with the application account, to:_
-\n_a) That you are shown alerts in our app when the distance you are using the terminal is too short (less than 30 cm)_
+
+_a) That you are shown alerts in our app when the distance you are using the terminal is too short (less than 30 cm)_
+
 _b) Collect the usage data of out app in the user's VisionApp account_
 
 **Will the data be shared with any third parties? Where will this information be stored?**
