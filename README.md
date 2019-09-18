@@ -68,6 +68,10 @@ extension AppDelegate: VisionAppDelegate {
 
 ### FAQs
 
+**Provide information on how to locate features in your app that use TrueDepth APIs**
+
+_Our app allows the user to link their user with their VisionApp account to help them improve their eye health. VisionApp uses the TrueDepth to measure the distance to the screen and the light, notifying the user when it is excessively close to the device. VisionApp also allows the user to share device usage data with their eye doctor_
+
 **What information is your app collecting using the TrueDepth API?**
 
 _Information is being collected on the habit of using the mobile device, in terms of distance from the screen to the user's face, and ambient lighting._
