@@ -64,7 +64,7 @@ extension AppDelegate: VisionAppDelegate {
     VisionApp.shared.profileSelection() // only if user profiles number > 1
 ```
 
-### Apple review FAQs
+### Apple app review FAQs
 
 **What information is your app collecting using the TrueDepth API?**
 
