@@ -99,7 +99,7 @@ class VARequestManager: NSObject {
     }
     
     func recoveryPassword(email:String, callBack:@escaping (Bool, String) -> ()) {
-        let urlString:String = "\(self.baseURL)accounts/recoveryPassword/\(email)"
+        let urlString:String = "\(self.baseURL)users/recoveryPassword/\(email)"
         let url = URL(string:urlString.trimmingCharacters(in: .whitespaces))
         var request = URLRequest(url: url!)
         request.httpMethod = "GET"
