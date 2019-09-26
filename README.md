@@ -15,6 +15,12 @@
 pod 'VisionApp', :git => 'https://github.com/GrupoGO/VisionApp'
 ```
 
+### Info.plist
+```swift
+<key>NSCameraUsageDescription</key>
+<string>Camera will be used for protect your eyesg</string>
+```
+
 ### Configure
 ```swift
 import VisionApp
