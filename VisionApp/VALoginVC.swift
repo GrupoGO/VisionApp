@@ -278,7 +278,7 @@ extension VALoginVC: QRScannerViewDelegate {
                     VASessionManager.shared.setUserInfo(user)
                     self.gotoApp()
                 } else {
-                    self.alertErrorMessage(message: message)
+                    self.alertErrorMessage(message: NSLocalizedString("Invalid QR Code", tableName: nil, bundle: Bundle(for: type(of: self)), value: "", comment: ""))
                 }
             }
 
