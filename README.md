@@ -17,7 +17,7 @@ pod 'VisionApp', :git => 'https://github.com/GrupoGO/VisionApp'
 
 ### Configure
 
-Since iOS 10 it's mandatory to add a `NSCameraUsageDescription` in the `Info.plist`.
+It's mandatory to add a `NSCameraUsageDescription` in the `Info.plist`.
 
 ```swift
 import VisionApp
