@@ -129,6 +129,9 @@ class VALoginVC: UIViewController {
             self.activityLoader.startAnimating()
             self.recoveryPasswordButton.isEnabled = false
             self.cancelButton.isEnabled = false
+            if scannerView.isRunning {
+                scannerView.stopScanning()
+            }
             VARequestManager.shared.signInUser(userNameTextField.text, password: passwordTextField.text) { (success, message, user) in
                 self.activityLoader.stopAnimating()
                 self.recoveryPasswordButton.isEnabled = true
@@ -137,6 +140,9 @@ class VALoginVC: UIViewController {
                     VASessionManager.shared.setUserInfo(user)
                     self.gotoApp()
                 } else {
+                    if !self.scannerView.isRunning {
+                        self.scannerView.startScanning()
+                    }
                     self.alertErrorMessage(message: message)
                 }
             }
@@ -168,7 +174,12 @@ class VALoginVC: UIViewController {
 
     func alertErrorMessage(message:String) {
         let alertController = UIAlertController(title: NSLocalizedString("Error", tableName: nil, bundle: Bundle(for: type(of: self)), value: "", comment: ""), message: message, preferredStyle: .alert)
-        let doneAction = UIAlertAction(title: NSLocalizedString("Done", tableName: nil, bundle: Bundle(for: type(of: self)), value: "", comment: ""), style: .cancel, handler: nil)
+
+        let doneAction = UIAlertAction(title: NSLocalizedString("Done", tableName: nil, bundle: Bundle(for: type(of: self)), value: "", comment: ""), style: .cancel) { (_) in
+            if !self.scannerView.isRunning {
+                self.scannerView.startScanning()
+            }
+        }
         alertController.addAction(doneAction)
         self.present(alertController, animated: true, completion: nil)
     }
@@ -255,7 +266,9 @@ extension VALoginVC: QRScannerViewDelegate {
             self.activityLoader.startAnimating()
             self.recoveryPasswordButton.isEnabled = false
             self.cancelButton.isEnabled = false
-            scannerView.stopScanning()
+            if scannerView.isRunning {
+                scannerView.stopScanning()
+            }
 
             VARequestManager.shared.getSessionUser { (success, message, user) in
                 self.activityLoader.stopAnimating()
@@ -265,7 +278,6 @@ extension VALoginVC: QRScannerViewDelegate {
                     VASessionManager.shared.setUserInfo(user)
                     self.gotoApp()
                 } else {
-                    self.scannerView.startScanning()
                     self.alertErrorMessage(message: message)
                 }
             }
