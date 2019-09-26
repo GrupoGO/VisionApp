@@ -5,7 +5,7 @@
 > VisionApp is based on ARKit configurations and face tracking. Is available only on iOS devices with a front-facing TrueDepth camera with iOS 12.0 or later.
 
 <img src="https://github.com/GrupoGO/VisionApp/blob/master/1.PNG?raw=true" width="30%" align="left">
-<img src="https://github.com/GrupoGO/VisionApp/blob/master/2.PNG?raw=true" width="30%" align="left">
+<img src="https://github.com/GrupoGO/VisionApp/blob/master/2.jpg?raw=true" width="30%" align="left">
 <img src="https://github.com/GrupoGO/VisionApp/blob/master/3.PNG?raw=true" width="30%">
 
 ## How to use
