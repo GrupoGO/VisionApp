@@ -27,7 +27,7 @@ class VARequestManager: NSObject {
     }
 
     func signInUser(_ email:String?, password:String?, callBack:@escaping (Bool, String, VAUser?) -> ()) {
-        let urlString:String = "\(self.baseURL)users/signin"
+        let urlString:String = "\(self.baseURL)accounts/login"
         let url = URL(string:urlString.trimmingCharacters(in: .whitespaces))
         
         if appToken != "", appSecret != "", let email = email, let password = password {
@@ -99,7 +99,7 @@ class VARequestManager: NSObject {
     }
     
     func recoveryPassword(email:String, callBack:@escaping (Bool, String) -> ()) {
-        let urlString:String = "\(self.baseURL)users/recoveryPassword/\(email)"
+        let urlString:String = "\(self.baseURL)accounts/recoveryPassword/\(email)"
         let url = URL(string:urlString.trimmingCharacters(in: .whitespaces))
         var request = URLRequest(url: url!)
         request.httpMethod = "GET"
@@ -142,7 +142,7 @@ class VARequestManager: NSObject {
     }
     
     func getSessionUser(callBack:@escaping (Bool, String, VAUser?) -> ()) {
-        let urlString:String = "\(self.baseURL)users/session"
+        let urlString:String = "\(self.baseURL)accounts/session"
         let url = URL(string:urlString.trimmingCharacters(in: .whitespaces))
         var request = URLRequest(url: url!)
         request.httpMethod = "GET"
