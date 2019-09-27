@@ -244,6 +244,67 @@ class VARequestManager: NSObject {
         
     }
 
+    func getConfiguration(for profile:Profile, callBack:@escaping (Bool, String, [Configuration]?) -> ()) {
+        let urlString:String = "\(self.baseURL)accounts/\(profile.accountId)/profiles/\(profile.code)/configuration"
+        let url = URL(string:urlString.trimmingCharacters(in: .whitespaces))
+        var request = URLRequest(url: url!)
+        request.httpMethod = "GET"
+        request.addValue(self.appToken, forHTTPHeaderField: "Token")
+        request.addValue(self.appSecret, forHTTPHeaderField: "Secret")
+        request.addValue("ios", forHTTPHeaderField: "API-apptype")
+        
+        if let userToken = UserDefaults.standard.string(forKey: "UserToken") {
+            request.addValue(userToken, forHTTPHeaderField: "SESSION-GI")
+        } else if let userId =  UserDefaults.standard.string(forKey: "currentUserID"), let userSecret = UserDefaults.standard.string(forKey: "currentUserCode") {
+            request.addValue("\(userId).\(userSecret)", forHTTPHeaderField: "SESSION-GI")
+        }
+        
+        switch Reach().connectionStatus() {
+        case .unknown, .offline:
+            callBack(false, "No internet connection", nil)
+        case .online(.wwan), .online(.wiFi):
+            let task = URLSession.shared.dataTask(with: request) { data, response, error in
+                DispatchQueue.main.async(execute: { () -> Void in
+                    if let error = error {
+                        callBack(false, error.localizedDescription, nil)
+                    } else if let httpResponse = response as? HTTPURLResponse {
+                        switch httpResponse.statusCode {
+                        case 200:
+                            if let data = data {
+                                do {
+                                    if let result = try JSONSerialization.jsonObject(with: data, options: []) as? [[String:AnyObject]] {
+                                        if let data = self.getArrayData(data: result) {
+                                            let configurations = data.compactMap { (configurationData) -> Configuration? in
+                                                if let configuration = try? self.decoder.decode(Configuration.self, from: configurationData) {
+                                                    return configuration
+                                                }
+                                                return nil
+                                            }
+                                            callBack(true, "done", configurations)
+                                        } else {
+                                            callBack(false, "Server error", nil)
+                                        }
+                                    } else {
+                                        callBack(false, "Server error", nil)
+                                    }
+                                } catch {
+                                    callBack(false, error.localizedDescription, nil)
+                                }
+                            } else {
+                                callBack(false, "Server error", nil)
+                            }
+                        default:
+                            callBack(false, "Server error", nil)
+                        }
+                    } else {
+                        callBack(false, "Server error", nil)
+                    }
+                })
+            }
+            task.resume()
+        }
+    }
+    
     func sendData(parameters:[String:Any], accountCode:Int, profileCode:Int, deviceCode:Int, callBack:@escaping (Bool, String) -> ()) {
         let urlString:String = "\(self.baseURL)accounts/\(accountCode)/profiles/\(profileCode)/devices/\(deviceCode)/data"
         let url = URL(string:urlString.trimmingCharacters(in: .whitespaces))
