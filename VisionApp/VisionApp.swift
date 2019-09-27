@@ -33,6 +33,7 @@ public class VisionApp: NSObject {
     var currentProfile:VAProfile? = nil
     var hiddenView:HiddenView?
     
+    var distanceToDevice = 300
 
     var selectedVirtualContent: VirtualContentType! {
         didSet {
@@ -181,6 +182,16 @@ public class VisionApp: NSObject {
             } else if let previousToken = previousToken {
                 UserDefaults.standard.set(previousToken, forKey: "VAuserToken")
                 UserDefaults.standard.set(previousToken, forKey: "VAcurrentUserProfileCode")
+            }
+        }
+    }
+    
+    func requestConfiguration(_ profile: VAProfile) {
+        VARequestManager.shared.getConfiguration(for: profile) { (success, message, configurations) in
+            if let configurations = configurations, configurations.count > 0 {
+                self.distanceToDevice = configurations[0].distanceToDevice
+            } else {
+                self.distanceToDevice = 300
             }
         }
     }
@@ -470,7 +481,7 @@ extension VisionApp: ARSCNViewDelegate {
             let averageDistance = (leftEyeDistanceFromCamera.length() + rightEyeDistanceFromCamera.length()) / 2
             
             let averageDistanceCM = Int(round(averageDistance * 100))
-            if averageDistanceCM <= 30 {
+            if averageDistanceCM <= self.distanceToDevice / 10 {
                 self.hiddenView?.isHidden = false
             } else {
                 self.hiddenView?.isHidden = true
