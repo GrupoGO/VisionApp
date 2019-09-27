@@ -156,6 +156,7 @@ public class VisionApp: NSObject {
                 let profileCode = UserDefaults.standard.integer(forKey: "VAcurrentUserProfileCode")
                 if let profile = user.profiles.first(where: {$0.code == profileCode}) {
                     self.currentProfile = profile
+                    self.requestConfiguration(profile)
                     self.setScene(previousToken, previousProfile: previousProfile, user: user, profile: profile)
                     if let lastSecond = UserDefaults.standard.object(forKey: "initDate\(profile.accountId)") as? Date {
                         self.lastSecond = lastSecond
@@ -168,6 +169,7 @@ public class VisionApp: NSObject {
                     let profile = user.profiles[0]
                     UserDefaults.standard.set(profile.code, forKey: "VAcurrentUserProfileCode")
                     self.currentProfile = profile
+                    self.requestConfiguration(profile)
                     self.setScene(previousToken, previousProfile: previousProfile, user: user, profile: profile)
                     if let lastSecond = UserDefaults.standard.object(forKey: "initDate\(profile.accountId)") as? Date {
                         self.lastSecond = lastSecond
@@ -218,6 +220,7 @@ public class VisionApp: NSObject {
                 let profile = user.profiles[0]
                 UserDefaults.standard.set(profile.code, forKey: "VAcurrentUserProfileCode")
                 self.currentProfile = profile
+                self.requestConfiguration(profile)
                 self.setScene(userToken, user: user, profile: profile)
                 if let lastSecond = UserDefaults.standard.object(forKey: "initDate\(profile.accountId)") as? Date {
                     self.lastSecond = lastSecond
@@ -231,6 +234,7 @@ public class VisionApp: NSObject {
                     let profileAction = UIAlertAction(title: profile.name, style: .default) { (_) in
                         UserDefaults.standard.set(profile.code, forKey: "VAcurrentUserProfileCode")
                         self.currentProfile = profile
+                        self.requestConfiguration(profile)
                         self.setScene(userToken, user: user, profile: profile)
                         if let lastSecond = UserDefaults.standard.object(forKey: "initDate\(profile.accountId)") as? Date {
                             self.lastSecond = lastSecond
