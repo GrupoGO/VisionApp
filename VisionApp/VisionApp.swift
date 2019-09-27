@@ -480,15 +480,15 @@ extension VisionApp: ARSCNViewDelegate {
             //5. Calculate The Average Distance Of The Eyes To The Camera
             let averageDistance = (leftEyeDistanceFromCamera.length() + rightEyeDistanceFromCamera.length()) / 2
             
-            let averageDistanceCM = Int(round(averageDistance * 100))
-            if averageDistanceCM <= self.distanceToDevice / 10 {
+            let averageDistanceMM = Int(round(averageDistance * 1000))
+            if averageDistanceMM <= self.distanceToDevice {
                 self.hiddenView?.isHidden = false
             } else {
                 self.hiddenView?.isHidden = true
             }
             
             //6. Print distance
-//            self.distanceLabel.text = "\(averageDistanceCM) cm"
+//            self.distanceLabel.text = "\(averageDistanceMM) mm"
 
             // 7. Light
 //            if let estimate = self.sceneView!.session.currentFrame?.lightEstimate {
