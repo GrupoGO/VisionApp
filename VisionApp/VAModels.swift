@@ -165,7 +165,7 @@ struct VADevice: Codable {
     
 }
 
-struct Configuration: Codable {
+struct VAConfiguration: Codable {
     
     let staffCode: Int
     let distanceToDevice: Int
