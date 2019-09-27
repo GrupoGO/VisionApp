@@ -26,6 +26,17 @@ class VARequestManager: NSObject {
         }
     }
 
+    func getArrayData(data:[[String:Any]]) -> [Data]? {
+        do {
+            let result = try data.map({ (data) -> Data in
+                return try JSONSerialization.data(withJSONObject: data, options: .prettyPrinted)
+            })
+            return result
+        } catch {
+            return nil
+        }
+    }
+    
     func signInUser(_ email:String?, password:String?, callBack:@escaping (Bool, String, VAUser?) -> ()) {
         let urlString:String = "\(self.baseURL)accounts/login"
         let url = URL(string:urlString.trimmingCharacters(in: .whitespaces))
@@ -244,7 +255,7 @@ class VARequestManager: NSObject {
         
     }
 
-    func getConfiguration(for profile:Profile, callBack:@escaping (Bool, String, [Configuration]?) -> ()) {
+    func getConfiguration(for profile:VAProfile, callBack:@escaping (Bool, String, [VAConfiguration]?) -> ()) {
         let urlString:String = "\(self.baseURL)accounts/\(profile.accountId)/profiles/\(profile.code)/configuration"
         let url = URL(string:urlString.trimmingCharacters(in: .whitespaces))
         var request = URLRequest(url: url!)
@@ -274,8 +285,8 @@ class VARequestManager: NSObject {
                                 do {
                                     if let result = try JSONSerialization.jsonObject(with: data, options: []) as? [[String:AnyObject]] {
                                         if let data = self.getArrayData(data: result) {
-                                            let configurations = data.compactMap { (configurationData) -> Configuration? in
-                                                if let configuration = try? self.decoder.decode(Configuration.self, from: configurationData) {
+                                            let configurations = data.compactMap { (configurationData) -> VAConfiguration? in
+                                                if let configuration = try? self.decoder.decode(VAConfiguration.self, from: configurationData) {
                                                     return configuration
                                                 }
                                                 return nil
