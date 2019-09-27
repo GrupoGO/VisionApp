@@ -164,3 +164,14 @@ struct VADevice: Codable {
     }
     
 }
+
+struct Configuration: Codable {
+    
+    let staffCode: Int
+    let distanceToDevice: Int
+    let maxLux: Int
+    let minLux: Int
+    let maxDayTime: Int
+    
+}
+
