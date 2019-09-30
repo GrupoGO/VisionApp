@@ -247,8 +247,10 @@ public class VisionApp: NSObject {
                 }
                 
                 let cancelAction = UIAlertAction(title: NSLocalizedString("Cancel", tableName: nil, bundle: Bundle(for: type(of: self)), value: "", comment: ""), style: .cancel) { (_) in
-                    self.delegate?.cancelVALogin()
-                    self.stopTracking()
+                    if self.currentProfile == nil {
+                        self.delegate?.cancelVALogin()
+                        self.stopTracking()
+                    }
                 }
                 alertController.addAction(cancelAction)
                 
