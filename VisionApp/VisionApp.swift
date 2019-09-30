@@ -177,6 +177,7 @@ public class VisionApp: NSObject {
                         self.lastSecond = Date()
                         UserDefaults.standard.set(self.lastSecond!, forKey: "initDate\(profile.code)")
                     }
+                    self.checkForDevice(profile: profile)
                 } else {
                     self.profileSelection(previousToken)
                 }
@@ -228,6 +229,7 @@ public class VisionApp: NSObject {
                     self.lastSecond = Date()
                     UserDefaults.standard.set(self.lastSecond!, forKey: "initDate\(profile.code)")
                 }
+                self.checkForDevice(profile: profile)
             } else if user.profiles.count > 1 {
                 let alertController = UIAlertController(title: NSLocalizedString("Select profile", tableName: nil, bundle: Bundle(for: type(of: self)), value: "", comment: ""), message: nil, preferredStyle: .alert)
                 for profile in user.profiles {
@@ -242,6 +244,7 @@ public class VisionApp: NSObject {
                             self.lastSecond = Date()
                             UserDefaults.standard.set(self.lastSecond!, forKey: "initDate\(profile.code)")
                         }
+                        self.checkForDevice(profile: profile)
                     }
                     alertController.addAction(profileAction)
                 }
