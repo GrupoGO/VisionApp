@@ -153,23 +153,17 @@ struct VAOculus: Codable {
 
 struct VADevice: Codable {
     
-    var id: Int
-    var makeAndModel: String
-    var deviceId: String?
-    
-    init(id:Int, makeAndModel:String, deviceId:String?) {
-        self.id = id
-        self.makeAndModel = makeAndModel
-        self.deviceId = deviceId
-    }
-    
-}
-
-struct VADevice2: Codable {
-    
     var code: Int
     var makeAndModel: String
     var deviceIsTablet: Bool
+    var deviceId: String?
+    
+    init(code:Int, makeAndModel:String, deviceIsTablet:Bool, deviceId:String?) {
+        self.code = code
+        self.makeAndModel = makeAndModel
+        self.deviceIsTablet = deviceIsTablet
+        self.deviceId = deviceId
+    }
     
 }
 
