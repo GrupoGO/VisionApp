@@ -165,6 +165,14 @@ struct VADevice: Codable {
     
 }
 
+struct VADevice2: Codable {
+    
+    var code: Int
+    var makeAndModel: String
+    var deviceIsTablet: Bool
+    
+}
+
 struct VAConfiguration: Codable {
     
     let staffCode: Int
