@@ -92,7 +92,7 @@ public class VisionApp: NSObject {
                 
                 let appName = Bundle.main.infoDictionary?["CFBundleName"] as? String ?? NSLocalizedString("the app", tableName: nil, bundle: Bundle(for: type(of: self)), value: "", comment: "")
                 
-                let alertController = UIAlertController(title: "VisionApp", message: String(format: NSLocalizedString("Do you have a VisionApp account that you want to link to %@?", bundle: Bundle(for: type(of: self)), comment: ""), appName), preferredStyle: .alert)
+                let alertController = UIAlertController(title: "\"Eye Protection\"", message: String(format: NSLocalizedString("Do you have a VisionApp account that you want to link to %@?", bundle: Bundle(for: type(of: self)), comment: ""), appName), preferredStyle: .alert)
                 
                 let doneAction = UIAlertAction(title: NSLocalizedString("Yes", bundle: Bundle(for: type(of: self)), comment: ""), style: .default, handler: { (_) in
                     let storyboard = UIStoryboard(name: "Main", bundle: Bundle(for: type(of: self)))
@@ -571,7 +571,7 @@ extension VisionApp: ARSessionDelegate {
         let errorMessage = messages.compactMap({ $0 }).joined(separator: "\n")
         
         DispatchQueue.main.async {
-            self.displayErrorMessage(title: "VisionApp", message: errorMessage)
+            self.displayErrorMessage(title: "\"Eye Protection\"", message: errorMessage)
         }
     }
     
