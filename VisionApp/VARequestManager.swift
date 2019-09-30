@@ -237,8 +237,22 @@ class VARequestManager: NSObject {
                     } else if let httpResponse = response as? HTTPURLResponse {
                         switch httpResponse.statusCode {
                         case 200:
-                            if let data = data, let str = String(data: data, encoding: .utf8), let identifier = Int(str) {
-                                callBack("done", identifier)
+                            if let data = data {
+                                do {
+                                    if let result = try JSONSerialization.jsonObject(with: data, options: []) as? [String:AnyObject] {
+                                        if let data = self.getData(result), let device = try? self.decoder.decode(VADevice2.self, from: data) {
+                                            callBack("done", device.code)
+                                        } else if let message = result["info"] as? String {
+                                            callBack(message, nil)
+                                        } else {
+                                            callBack("Server error", nil)
+                                        }
+                                    } else {
+                                        callBack("Server error", nil)
+                                    }
+                                } catch {
+                                    callBack(error.localizedDescription, nil)
+                                }
                             } else {
                                 callBack("Server error", nil)
                             }
