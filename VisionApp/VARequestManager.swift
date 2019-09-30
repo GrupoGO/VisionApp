@@ -240,7 +240,7 @@ class VARequestManager: NSObject {
                             if let data = data {
                                 do {
                                     if let result = try JSONSerialization.jsonObject(with: data, options: []) as? [String:AnyObject] {
-                                        if let data = self.getData(result), let device = try? self.decoder.decode(VADevice2.self, from: data) {
+                                        if let data = self.getData(result), let device = try? self.decoder.decode(VADevice.self, from: data) {
                                             callBack("done", device.code)
                                         } else if let message = result["info"] as? String {
                                             callBack(message, nil)
