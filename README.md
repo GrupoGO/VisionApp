@@ -1,5 +1,3 @@
-# VisionApp
-
 ## ⚠️ Important
 
 > VisionApp is based on ARKit configurations and face tracking. Is available only on iOS devices with a front-facing TrueDepth camera with iOS 12.0 or later.
