@@ -1,7 +1,25 @@
 /* 
   Localizable.strings
-  aaa
+  VisionApp
 
-  Created by Emilio Cubo Ruiz on 30/09/2019.
-  Copyright © 2019 VIsionApp. All rights reserved.
+  Created by Emilio Cubo Ruiz on 04/09/2019.
+  Copyright © 2019 VisionApp. All rights reserved.
 */
+
+"You are too close to the screen.\n\nGet away to continue using %@." = "esteś za blisko ekranu.\n\nOdejdź, aby kontynuować korzystanie z %@.";
+"the app" = "aplikacja";
+"Do you have a VisionApp account that you want to link to %@?" = "Czy masz konto VisionApp, które chcesz połączyć z %@?";
+"Yes" = "Tak";
+"No" = "Nie";
+"Recovery password" = "Hasło odzyskiwania";
+"Done" = "Gotowy";
+"Cancel" = "Anulować";
+"E-Mail" = "E-Mail";
+"Success" = "Powodzenie";
+"Error" = "Błąd";
+"An email has been sent to retrieve the password" = "E-mail został wysłany w celu odzyskania hasła";
+"Go to Settings" = "Przejdź do ustawień";
+"Later" = "Później";
+"Select profile" = "Wybierz profil";
+"ic_logo_en" = "myopia-logo-pl";
+"Invalid QR Code" = "Niepoprawny kod QR";
