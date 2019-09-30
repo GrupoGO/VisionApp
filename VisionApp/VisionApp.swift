@@ -323,7 +323,7 @@ public class VisionApp: NSObject {
             self.setupEyeNode()
         }
         
-        if let currentProfile = self.currentProfile, let stream = UserDefaults.standard.object(forKey: "stream\(currentProfile.accountId)") as? [[String:Int]], stream.count > 0, let bundleIdentifier = Bundle.main.bundleIdentifier, let timestamp = UserDefaults.standard.object(forKey: "initDate\(currentProfile.accountId)") as? Date, let deviceId = self.deviceId {
+        if let currentProfile = self.currentProfile, let stream = UserDefaults.standard.object(forKey: "stream\(currentProfile.code)") as? [[String:Int]], stream.count > 0, let bundleIdentifier = Bundle.main.bundleIdentifier, let timestamp = UserDefaults.standard.object(forKey: "initDate\(currentProfile.code)") as? Date, let deviceId = self.deviceId {
             
             let distances = stream.map { (s) -> Int in
                 return s["d"] ?? 0
@@ -343,9 +343,9 @@ public class VisionApp: NSObject {
             
             VARequestManager.shared.sendData(parameters: measurementStream, accountCode: currentProfile.accountId, profileCode: currentProfile.code, deviceCode: deviceId) { (success, message) in
                 if success {
-                    UserDefaults.standard.set([], forKey: "stream\(currentProfile.accountId)")
+                    UserDefaults.standard.set([], forKey: "stream\(currentProfile.code)")
                     self.lastSecond = Date()
-                    UserDefaults.standard.set(self.lastSecond!, forKey: "initDate\(currentProfile.accountId)")
+                    UserDefaults.standard.set(self.lastSecond!, forKey: "initDate\(currentProfile.code)")
                 } else {
                     print(message)
                     
@@ -529,7 +529,7 @@ extension VisionApp: ARSCNViewDelegate {
 //            self.yAngleLabel.text = "y: \(y)º"
 //            self.zAngleLabel.text = "z: \(z)º"
             
-            if let currentProfile = self.currentProfile, let initDate = UserDefaults.standard.object(forKey: "initDate\(currentProfile.accountId)") as? Date, let lastSecond = self.lastSecond, let estimate = self.sceneView?.session.currentFrame?.lightEstimate {
+            if let currentProfile = self.currentProfile, let initDate = UserDefaults.standard.object(forKey: "initDate\(currentProfile.code)") as? Date, let lastSecond = self.lastSecond, let estimate = self.sceneView?.session.currentFrame?.lightEstimate {
                 let currentDate = Date()
                 let distanceMM = Int(round(averageDistance * 1000))
                 let light = Int(round(estimate.ambientIntensity * 100))
@@ -542,9 +542,9 @@ extension VisionApp: ARSCNViewDelegate {
                         "l": light,
                         "t": elapsed
                     ]
-                    var stream = UserDefaults.standard.object(forKey: "stream\(currentProfile.accountId)") as? [[String:Int]] ?? []
+                    var stream = UserDefaults.standard.object(forKey: "stream\(currentProfile.code)") as? [[String:Int]] ?? []
                     stream.append(currentStream)
-                    UserDefaults.standard.set(stream, forKey: "stream\(currentProfile.accountId)")
+                    UserDefaults.standard.set(stream, forKey: "stream\(currentProfile.code)")
                     
                 }
                 
