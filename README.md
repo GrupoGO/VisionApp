@@ -67,6 +67,10 @@ extension AppDelegate: VisionAppDelegate {
     VisionApp.shared.profileSelection() // only if user profiles number > 1
 ```
 
+### Language support
+
+English, Spanish, Polski and Russian
+
 ## Apple's review considerations
 
 ### FAQs
