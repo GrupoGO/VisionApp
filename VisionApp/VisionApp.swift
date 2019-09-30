@@ -158,11 +158,11 @@ public class VisionApp: NSObject {
                     self.currentProfile = profile
                     self.requestConfiguration(profile)
                     self.setScene(previousToken, previousProfile: previousProfile, user: user, profile: profile)
-                    if let lastSecond = UserDefaults.standard.object(forKey: "initDate\(profile.accountId)") as? Date {
+                    if let lastSecond = UserDefaults.standard.object(forKey: "initDate\(profile.code)") as? Date {
                         self.lastSecond = lastSecond
                     } else {
                         self.lastSecond = Date()
-                        UserDefaults.standard.set(self.lastSecond!, forKey: "initDate\(profile.accountId)")
+                        UserDefaults.standard.set(self.lastSecond!, forKey: "initDate\(profile.code)")
                     }
                     self.checkForDevice(profile: profile)
                 } else if user.profiles.count == 1 {
@@ -171,11 +171,11 @@ public class VisionApp: NSObject {
                     self.currentProfile = profile
                     self.requestConfiguration(profile)
                     self.setScene(previousToken, previousProfile: previousProfile, user: user, profile: profile)
-                    if let lastSecond = UserDefaults.standard.object(forKey: "initDate\(profile.accountId)") as? Date {
+                    if let lastSecond = UserDefaults.standard.object(forKey: "initDate\(profile.code)") as? Date {
                         self.lastSecond = lastSecond
                     } else {
                         self.lastSecond = Date()
-                        UserDefaults.standard.set(self.lastSecond!, forKey: "initDate\(profile.accountId)")
+                        UserDefaults.standard.set(self.lastSecond!, forKey: "initDate\(profile.code)")
                     }
                 } else {
                     self.profileSelection(previousToken)
@@ -222,11 +222,11 @@ public class VisionApp: NSObject {
                 self.currentProfile = profile
                 self.requestConfiguration(profile)
                 self.setScene(userToken, user: user, profile: profile)
-                if let lastSecond = UserDefaults.standard.object(forKey: "initDate\(profile.accountId)") as? Date {
+                if let lastSecond = UserDefaults.standard.object(forKey: "initDate\(profile.code)") as? Date {
                     self.lastSecond = lastSecond
                 } else {
                     self.lastSecond = Date()
-                    UserDefaults.standard.set(self.lastSecond!, forKey: "initDate\(profile.accountId)")
+                    UserDefaults.standard.set(self.lastSecond!, forKey: "initDate\(profile.code)")
                 }
             } else if user.profiles.count > 1 {
                 let alertController = UIAlertController(title: NSLocalizedString("Select profile", tableName: nil, bundle: Bundle(for: type(of: self)), value: "", comment: ""), message: nil, preferredStyle: .alert)
@@ -236,11 +236,11 @@ public class VisionApp: NSObject {
                         self.currentProfile = profile
                         self.requestConfiguration(profile)
                         self.setScene(userToken, user: user, profile: profile)
-                        if let lastSecond = UserDefaults.standard.object(forKey: "initDate\(profile.accountId)") as? Date {
+                        if let lastSecond = UserDefaults.standard.object(forKey: "initDate\(profile.code)") as? Date {
                             self.lastSecond = lastSecond
                         } else {
                             self.lastSecond = Date()
-                            UserDefaults.standard.set(self.lastSecond!, forKey: "initDate\(profile.accountId)")
+                            UserDefaults.standard.set(self.lastSecond!, forKey: "initDate\(profile.code)")
                         }
                     }
                     alertController.addAction(profileAction)
