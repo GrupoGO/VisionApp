@@ -273,23 +273,23 @@ public class VisionApp: NSObject {
         if let deviceIdentifer = UIDevice.current.identifierForVendor?.uuidString {
             deviceJSON["deviceId"] = deviceIdentifer
             if !profile.devices.contains(where: {$0.deviceId == deviceIdentifer}) {
-                self.setNewDevice(deviceJSON: deviceJSON, profile: profile)
+                self.setNewDevice(deviceJSON: deviceJSON, profile: profile, deviceIsTablet: deviceIsTablet)
             } else if let index = profile.devices.firstIndex(where:{$0.deviceId == deviceIdentifer || $0.makeAndModel == makeAndModel}) {
-                self.deviceId = profile.devices[index].id
+                self.deviceId = profile.devices[index].code
             }
         } else if !profile.devices.contains(where: {$0.makeAndModel == makeAndModel}) {
-            self.setNewDevice(deviceJSON: deviceJSON, profile: profile)
+            self.setNewDevice(deviceJSON: deviceJSON, profile: profile, deviceIsTablet: deviceIsTablet)
         } else if let index = profile.devices.firstIndex(where:{$0.makeAndModel == makeAndModel}) {
-            self.deviceId = profile.devices[index].id
+            self.deviceId = profile.devices[index].code
         }
 
     }
     
-    func setNewDevice(deviceJSON:[String:Any], profile: VAProfile) {
+    func setNewDevice(deviceJSON:[String:Any], profile: VAProfile, deviceIsTablet: Bool) {
         VARequestManager.shared.setDevice(parameters: deviceJSON, accountCode: profile.accountId, profileCode: profile.code) { (message, id) in
             if let id = id {
                 self.deviceId = id
-                let newDevice = VADevice(id: id, makeAndModel: deviceJSON["makeAndModel"] as! String, deviceId: deviceJSON["deviceId"] as? String ?? nil)
+                let newDevice = VADevice(code: id, makeAndModel: deviceJSON["makeAndModel"] as! String, deviceIsTablet: deviceIsTablet, deviceId: deviceJSON["deviceId"] as? String ?? nil)
                 if let index = self.currentUser?.profiles.firstIndex(where:{$0.code == profile.code}) {
                     self.currentUser?.profiles[index].devices.append(newDevice)
                 }
