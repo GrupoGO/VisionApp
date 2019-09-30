@@ -1,1 +1,21 @@
 
+/* Class = "UIButton"; normalTitle = "Forgot my password"; ObjectID = "ZPv-g4-7dg"; */
+"ZPv-g4-7dg.normalTitle" = "Zapomniałem hasła";
+
+/* Class = "UITextField"; placeholder = "Username"; ObjectID = "bT2-Q5-Xmc"; */
+"bT2-Q5-Xmc.placeholder" = "Nazwa Użytkownika";
+
+/* Class = "UILabel"; text = "Password"; ObjectID = "jVV-Dh-rX4"; */
+"jVV-Dh-rX4.text" = "Hasło";
+
+/* Class = "UILabel"; text = "Username"; ObjectID = "jnk-rq-bY4"; */
+"jnk-rq-bY4.text" = "Nazwa Użytkownika";
+
+/* Class = "UIButton"; normalTitle = "Sign in"; ObjectID = "uES-gR-jWR"; */
+"uES-gR-jWR.normalTitle" = "Zaloguj się";
+
+/* Class = "UITextField"; placeholder = "Password"; ObjectID = "xQO-EH-bY0"; */
+"xQO-EH-bY0.placeholder" = "Hasło";
+
+/* Class = "UIButton"; normalTitle = "Cancel"; ObjectID = "nov-Mm-1Ws"; */
+"nov-Mm-1Ws.normalTitle" = "Anulować";
