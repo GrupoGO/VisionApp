@@ -193,8 +193,8 @@ public class VisionApp: NSObject {
     
     func requestConfiguration(_ profile: VAProfile) {
         VARequestManager.shared.getConfiguration(for: profile) { (success, message, configurations) in
-            if let configurations = configurations, configurations.count > 0 {
-                self.distanceToDevice = configurations[0].distanceToDevice
+            if let configuration = configurations?.last {
+                self.distanceToDevice = configuration.distanceToDevice
             } else {
                 self.distanceToDevice = 300
             }
