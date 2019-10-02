@@ -335,6 +335,15 @@ public class VisionApp: NSObject {
             print(timestamp.millisecondsSince1970)
             
             let measurementStream:[String:Any] = [
+                // "distanceHistogram": [1, 29, 103, 3]
+                // "lightHistogram": [0, 0, 112, 24]
+                // "meanDistance": 389.55884
+                // "meanLight": 1348.3856
+                // sended
+                // "stdDistance": 111.60199
+                // "stdLight": 2899.3005
+                "sended": false,
+                "interval": 1,
                 "meanDistance": Float(distances.reduce(0, +)) / Float(distances.count),
                 "stream": stream,
                 "timestamp": timestamp.millisecondsSince1970,
