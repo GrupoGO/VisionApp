@@ -9,6 +9,8 @@
 import UIKit
 import ARKit
 import SceneKit
+import Accelerate
+
 
 public protocol VisionAppDelegate {
     func userVAInfo(userToken: String, userName:String, profileId:Int?, profileName:String?)
@@ -297,7 +299,7 @@ public class VisionApp: NSObject {
                     self.currentUser?.profiles[index].devices.append(newDevice)
                 }
             } else {
-                print(message)
+                // print(message)
                 
             }
         }
@@ -328,23 +330,62 @@ public class VisionApp: NSObject {
         
         if let currentProfile = self.currentProfile, let stream = UserDefaults.standard.object(forKey: "stream\(currentProfile.code)") as? [[String:Int]], stream.count > 0, let bundleIdentifier = Bundle.main.bundleIdentifier, let timestamp = UserDefaults.standard.object(forKey: "initDate\(currentProfile.code)") as? Date, let deviceId = self.deviceId {
             
-            let distances = stream.map { (s) -> Int in
-                return s["d"] ?? 0
+            var d1 = 0
+            var d2 = 0
+            var d3 = 0
+            var d4 = 0
+            let distances = stream.map { (s) -> Double in
+                let d = s["d"] ?? 0
+                if d <= 25 {
+                    d1 = d1 + 1
+                } else if d <= 33 {
+                    d2 = d2 + 1
+                } else if d <= 50 {
+                    d3 = d3 + 1
+                } else {
+                    d4 = d4 + 1
+                }
+                return Double(d)
             }
             
-            print(timestamp.millisecondsSince1970)
+            var l1 = 0
+            var l2 = 0
+            var l3 = 0
+            var l4 = 0
             
+            let lights = stream.map { (s) -> Double in
+                let l = s["l"] ?? 0
+                if l <= 5 {
+                    l1 = l1 + 1
+                } else if l <= 100 {
+                    l2 = l2 + 1
+                } else if l <= 500 {
+                    l3 = l3 + 1
+                } else {
+                    l4 = l4 + 1
+                }
+                return Double(l)
+            }
+            
+            var mnDistance = 0.0
+            var sddevDistance = 0.0
+            vDSP_normalizeD(distances, 1, nil, 1, &mnDistance, &sddevDistance, vDSP_Length(distances.count))
+            sddevDistance *= sqrt(Double(distances.count)/Double(distances.count - 1))
+
+            var mnLight = 0.0
+            var sddevLight = 0.0
+            vDSP_normalizeD(lights, 1, nil, 1, &mnLight, &sddevLight, vDSP_Length(lights.count))
+            sddevLight *= sqrt(Double(lights.count)/Double(lights.count - 1))
+
             let measurementStream:[String:Any] = [
-                // "distanceHistogram": [1, 29, 103, 3]
-                // "lightHistogram": [0, 0, 112, 24]
-                // "meanDistance": 389.55884
-                // "meanLight": 1348.3856
-                // sended
-                // "stdDistance": 111.60199
-                // "stdLight": 2899.3005
+                "distanceHistogram": [d1, d2, d3, d4],
+                "lightHistogram": [l1, l2, l3, l4],
                 "sended": false,
                 "interval": 1,
-                "meanDistance": Float(distances.reduce(0, +)) / Float(distances.count),
+                "meanDistance": mnDistance,
+                "stdDistance": sddevDistance,
+                "meanLight": mnLight,
+                "stdLight": sddevLight,
                 "stream": stream,
                 "timestamp": timestamp.millisecondsSince1970,
                 "userActivity": [[
@@ -544,7 +585,7 @@ extension VisionApp: ARSCNViewDelegate {
             if let currentProfile = self.currentProfile, let initDate = UserDefaults.standard.object(forKey: "initDate\(currentProfile.code)") as? Date, let lastSecond = self.lastSecond, let estimate = self.sceneView?.session.currentFrame?.lightEstimate {
                 let currentDate = Date()
                 let distanceMM = Int(round(averageDistance * 1000))
-                let light = Int(round(estimate.ambientIntensity * 100))
+                let light = Int(round(estimate.ambientIntensity))
                 let elapsed = Int(currentDate.timeIntervalSince(initDate))
                 let lastElapsed = Int(lastSecond.timeIntervalSince(initDate))
                 if elapsed > lastElapsed {
