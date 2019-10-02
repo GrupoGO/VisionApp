@@ -120,11 +120,35 @@ struct VAProfile: Codable {
 
 struct VALicense: Codable {
     
+    enum CodingKeys: String, CodingKey {
+        case code
+        case profileId
+        case centerId
+        case status
+        case accepted
+    }
+
+    init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        
+        self.code = try values.decode(Int.self, forKey: .code)
+        self.profileId = try values.decode(Int.self, forKey: .profileId)
+        self.centerId = try values.decode(Int.self, forKey: .centerId)
+        self.status = try values.decode(Int.self, forKey: .status)
+        
+        do {
+            self.accepted = try values.decode(Bool.self, forKey: .accepted)
+        } catch {
+            self.accepted = false
+        }
+        
+    }
+
     var code: Int
     var profileId: Int
     var centerId: Int
     var status: Int
-    var accepted: Date
+    var accepted: Bool
     
 }
 
