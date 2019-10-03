@@ -12,7 +12,7 @@
 "jnk-rq-bY4.text" = "имя пользователя";
 
 /* Class = "UIButton"; normalTitle = "Sign in"; ObjectID = "uES-gR-jWR"; */
-"uES-gR-jWR.normalTitle" = "Sign in";
+"uES-gR-jWR.normalTitle" = "войти в систему";
 
 /* Class = "UITextField"; placeholder = "Password"; ObjectID = "xQO-EH-bY0"; */
 "xQO-EH-bY0.placeholder" = "пароль";
