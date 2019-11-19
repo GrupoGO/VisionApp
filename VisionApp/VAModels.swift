@@ -27,13 +27,15 @@ struct VAProfile: Codable {
     let accountId: Int
     let name: String
     let avatar: URL
-    let principal_center: Int?
+    let center: Center?
     let alias: String?
     let birthday: Date?
     let gender: VATag?
     let observations: String?
     let refraction: VARefraction?
     let ethnicity: VATag?
+    var supervisors: [VASupervisor]
+    var protection:VATag?
     let email: String
     let licenses: [VALicense]
     var devices: [VADevice]
@@ -43,13 +45,15 @@ struct VAProfile: Codable {
         case accountId
         case name
         case avatar
-        case principal_center
+        case center
         case alias
         case birthday
         case gender
         case observations
         case refraction
         case ethnicity
+        case supervisors
+        case protection
         case email
         case licenses
         case devices
@@ -106,6 +110,18 @@ struct VAProfile: Codable {
         }
         
         do {
+            self.supervisors = try values.decode([VASupervisor].self, forKey: .supervisors)
+        } catch {
+            self.supervisors = []
+        }
+
+        do {
+            self.protection = try values.decode(VAag.self, forKey: .protection)
+        } catch {
+            self.protection = nil
+        }
+
+        do {
             self.devices = try values.decode([VADevice].self, forKey: .devices)
         } catch {
             self.devices = []
@@ -116,6 +132,11 @@ struct VAProfile: Codable {
         
     }
     
+}
+
+struct VASupervisor: Codable {
+    let code: Int
+    let email: String
 }
 
 struct VALicense: Codable {
