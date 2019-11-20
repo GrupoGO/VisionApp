@@ -56,21 +56,23 @@ struct VAProfile: Codable {
     
     let code: Int
     let accountId: Int
-    let name: String
-    let avatar: URL
+    var name: String
+    var avatar: URL
+    let email: String?
     let center: VATag?
-    let alias: String?
-    let birthday: Date?
-    let gender: VATag?
+    var alias: String?
+    var birthday: Date?
+    var gender: VATag?
     let observations: String?
     let refraction: VARefraction?
-    let ethnicity: VATag?
+    var ethnicity: VATag?
     var supervisors: [VASupervisor]
-    var protection:VATag?
-    let email: String?
-    let licenses: [VALicense]
+    var protection:VATag
+    var licenses: [VALicense]
+    // var average:VAAverage?
     var devices: [VADevice]
-    
+    let hash: String?
+
     enum CodingKeys: String, CodingKey {
         case code
         case accountId
@@ -87,7 +89,9 @@ struct VAProfile: Codable {
         case protection
         case email
         case licenses
+        // case average
         case devices
+        case hash
     }
     
     init(from decoder: Decoder) throws {
@@ -96,8 +100,19 @@ struct VAProfile: Codable {
         self.code = try values.decode(Int.self, forKey: .code)
         self.accountId = try values.decode(Int.self, forKey: .accountId)
         self.name = try values.decode(String.self, forKey: .name)
-        self.avatar = try values.decode(URL.self, forKey: .avatar)
         
+        do {
+            self.avatar = try values.decode(URL.self, forKey: .avatar)
+        } catch {
+            self.avatar = URL(string: "https://webintra.net/services/user/avatar/default.png")!
+        }
+
+        do {
+            self.hash = try values.decode(String.self, forKey: .hash)
+        } catch {
+            self.hash = nil
+        }
+
         do {
             self.center = try values.decode(VATag.self, forKey: .center)
         } catch {
@@ -111,7 +126,7 @@ struct VAProfile: Codable {
         }
         
         do {
-            self.birthday = try values.decode(Date.self, forKey: .alias)
+            self.birthday = try values.decode(Date.self, forKey: .birthday)
         } catch {
             self.birthday = nil
         }
@@ -139,7 +154,7 @@ struct VAProfile: Codable {
         } catch {
             self.ethnicity = nil
         }
-        
+
         do {
             self.supervisors = try values.decode([VASupervisor].self, forKey: .supervisors)
         } catch {
@@ -149,7 +164,7 @@ struct VAProfile: Codable {
         do {
             self.protection = try values.decode(VATag.self, forKey: .protection)
         } catch {
-            self.protection = nil
+            self.protection = VATag(id: 21226471, name: "off")
         }
 
         do {
@@ -158,13 +173,23 @@ struct VAProfile: Codable {
             self.devices = []
         }
         
+//        do {
+//            self.average = try values.decode(VAAverage.self, forKey: .average)
+//        } catch {
+//            self.average = nil
+//        }
+
         do {
             self.email = try values.decode(String.self, forKey: .email)
         } catch {
             self.email = nil
         }
-
-        self.licenses = try values.decode([VALicense].self, forKey: .licenses)
+        
+        do {
+            self.licenses = try values.decode([VALicense].self, forKey: .licenses)
+        } catch {
+            self.licenses = []
+        }
         
     }
     
