@@ -27,7 +27,7 @@ struct VAProfile: Codable {
     let accountId: Int
     let name: String
     let avatar: URL
-    let center: Center?
+    let center: VATag?
     let alias: String?
     let birthday: Date?
     let gender: VATag?
@@ -68,9 +68,9 @@ struct VAProfile: Codable {
         self.avatar = try values.decode(URL.self, forKey: .avatar)
         
         do {
-            self.principal_center = try values.decode(Int.self, forKey: .principal_center)
+            self.center = try values.decode(VATag.self, forKey: .center)
         } catch {
-            self.principal_center = nil
+            self.center = nil
         }
         
         do {
@@ -116,7 +116,7 @@ struct VAProfile: Codable {
         }
 
         do {
-            self.protection = try values.decode(VAag.self, forKey: .protection)
+            self.protection = try values.decode(VATag.self, forKey: .protection)
         } catch {
             self.protection = nil
         }
@@ -221,4 +221,3 @@ struct VAConfiguration: Codable {
     let maxDayTime: Int
     
 }
-
