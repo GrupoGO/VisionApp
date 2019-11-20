@@ -335,6 +335,7 @@ class VARequestManager: NSObject {
     func sendData(parameters:[String:Any], accountCode:Int, profileCode:Int, deviceCode:Int, callBack:@escaping (Bool, String) -> ()) {
         // let urlString:String = "\(self.baseURL)accounts/\(accountCode)/profiles/\(profileCode)/devices/\(deviceCode)/data"
         let urlString:String = "\(self.baseURL)profiles/\(profileCode)/devices/\(deviceCode)/data"
+        let url = URL(string:urlString.trimmingCharacters(in: .whitespaces))
         var request = URLRequest(url: url!)
         request.httpMethod = "POST"
         let jsonObject = try! JSONSerialization.data(withJSONObject:parameters, options: [])
