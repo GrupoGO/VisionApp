@@ -10,15 +10,46 @@ import UIKit
 
 struct VAUser: Codable {
     
-    let code: Int
-    let userCode: Int
-    let firstname: String
-    let lastname: String
-    let email: String
-    let avatar: URL
-    let secret: String
-    var profiles: [VAProfile]
-    
+        enum CodingKeys: String, CodingKey {
+            case code
+            case userCode
+            case firstname
+            case lastname
+            case email
+            case avatar
+            case secret
+            case profiles
+        }
+
+        init(from decoder: Decoder) throws {
+            let values = try decoder.container(keyedBy: CodingKeys.self)
+            code = try values.decode(Int.self, forKey: .code)
+            userCode = try values.decode(Int.self, forKey: .userCode)
+            firstname = try values.decode(String.self, forKey: .firstname)
+            lastname = try values.decode(String.self, forKey: .lastname)
+            email = try values.decode(String.self, forKey: .email)
+            avatar = try values.decode(URL.self, forKey: .avatar)
+            secret = try values.decode(String.self, forKey: .secret)
+
+            let currentCode = self.code
+            var userProfiles = try values.decode([VAProfile].self, forKey: .profiles).sorted(by: {$0.code < $1.code})
+            let uniqueSupervisor = userProfiles.filter({$0.supervisors.count == 1})
+            if let currentProfile = uniqueSupervisor.first(where: {$0.code > currentCode}), let index = userProfiles.firstIndex(where: {$0.code == currentProfile.code}) {
+                userProfiles.insert(userProfiles.remove(at: index), at: 0)
+            }
+            
+            profiles = userProfiles
+
+        }
+        
+        let code: Int
+        let userCode: Int
+        let firstname: String
+        let lastname: String
+        let email: String
+        let avatar: URL
+        let secret: String
+        var profiles: [VAProfile]
 }
 
 struct VAProfile: Codable {
@@ -36,7 +67,7 @@ struct VAProfile: Codable {
     let ethnicity: VATag?
     var supervisors: [VASupervisor]
     var protection:VATag?
-    let email: String
+    let email: String?
     let licenses: [VALicense]
     var devices: [VADevice]
     
@@ -127,7 +158,12 @@ struct VAProfile: Codable {
             self.devices = []
         }
         
-        self.email = try values.decode(String.self, forKey: .email)
+        do {
+            self.email = try values.decode(String.self, forKey: .email)
+        } catch {
+            self.email = nil
+        }
+
         self.licenses = try values.decode([VALicense].self, forKey: .licenses)
         
     }
