@@ -321,7 +321,7 @@ public class VisionApp: NSObject {
 
     }
 
-    @objc func appHasComeFromBackground(_ notification: NSNotification) {
+    @objc public func appHasComeFromBackground(_ notification: NSNotification) {
         if self.sceneView != nil {
             UIApplication.shared.isIdleTimerDisabled = true
             self.resetTracking()
