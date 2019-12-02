@@ -271,7 +271,6 @@ class VARequestManager: NSObject {
     }
 
     func getConfiguration(for profile:VAProfile, callBack:@escaping (Bool, String, [VAConfiguration]?) -> ()) {
-        // let urlString:String = "\(self.baseURL)accounts/\(profile.accountId)/profiles/\(profile.code)/configuration"
         let urlString:String = "\(self.baseURL)profiles/\(profile.code)/configuration"
         let url = URL(string:urlString.trimmingCharacters(in: .whitespaces))
         var request = URLRequest(url: url!)
