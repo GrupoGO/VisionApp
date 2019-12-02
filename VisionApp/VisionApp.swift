@@ -291,7 +291,7 @@ public class VisionApp: NSObject {
     }
     
     func setNewDevice(deviceJSON:[String:Any], profile: VAProfile, deviceIsTablet: Bool) {
-        VARequestManager.shared.setDevice(parameters: deviceJSON, accountCode: profile.accountId, profileCode: profile.code) { (message, id) in
+        VARequestManager.shared.setDevice(parameters: deviceJSON, profileCode: profile.code) { (message, id) in
             if let id = id {
                 self.deviceId = id
                 let newDevice = VADevice(code: id, makeAndModel: deviceJSON["makeAndModel"] as! String, deviceIsTablet: deviceIsTablet, deviceId: deviceJSON["deviceId"] as? String ?? nil)
@@ -398,7 +398,7 @@ public class VisionApp: NSObject {
                     ]]
             ]
             
-            VARequestManager.shared.sendData(parameters: measurementStream, accountCode: currentProfile.accountId, profileCode: currentProfile.code, deviceCode: deviceId) { (success, message) in
+            VARequestManager.shared.sendData(parameters: measurementStream, profileCode: currentProfile.code, deviceCode: deviceId) { (success, message) in
                 if success {
                     UserDefaults.standard.set([], forKey: "stream\(currentProfile.code)")
                     self.lastSecond = Date()
