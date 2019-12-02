@@ -209,8 +209,7 @@ class VARequestManager: NSObject {
         }
     }
     
-    func setDevice(parameters:[String:Any], accountCode:Int, profileCode:Int, callBack:@escaping (String, Int?) -> ()) {
-        // let urlString:String = "\(self.baseURL)accounts/\(accountCode)/profile/\(profileCode)/device"
+    func setDevice(parameters:[String:Any], profileCode:Int, callBack:@escaping (String, Int?) -> ()) {
         let urlString:String = "\(self.baseURL)profile/\(profileCode)/device"
         let url = URL(string:urlString.trimmingCharacters(in: .whitespaces))
         var request = URLRequest(url: url!)
@@ -331,8 +330,7 @@ class VARequestManager: NSObject {
         }
     }
     
-    func sendData(parameters:[String:Any], accountCode:Int, profileCode:Int, deviceCode:Int, callBack:@escaping (Bool, String) -> ()) {
-        // let urlString:String = "\(self.baseURL)accounts/\(accountCode)/profiles/\(profileCode)/devices/\(deviceCode)/data"
+    func sendData(parameters:[String:Any], profileCode:Int, deviceCode:Int, callBack:@escaping (Bool, String) -> ()) {
         let urlString:String = "\(self.baseURL)profiles/\(profileCode)/devices/\(deviceCode)/data"
         let url = URL(string:urlString.trimmingCharacters(in: .whitespaces))
         var request = URLRequest(url: url!)
