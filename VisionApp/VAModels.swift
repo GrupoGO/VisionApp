@@ -55,7 +55,6 @@ struct VAUser: Codable {
 struct VAProfile: Codable {
     
     let code: Int
-    let accountId: Int
     var name: String
     var avatar: URL
     let email: String?
@@ -75,7 +74,6 @@ struct VAProfile: Codable {
 
     enum CodingKeys: String, CodingKey {
         case code
-        case accountId
         case name
         case avatar
         case center
@@ -98,7 +96,6 @@ struct VAProfile: Codable {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         
         self.code = try values.decode(Int.self, forKey: .code)
-        self.accountId = try values.decode(Int.self, forKey: .accountId)
         self.name = try values.decode(String.self, forKey: .name)
         
         do {
