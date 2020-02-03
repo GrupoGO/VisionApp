@@ -15,6 +15,7 @@ import Accelerate
 public protocol VisionAppDelegate {
     func userVAInfo(userToken: String, userName:String, profileId:Int?, profileName:String?)
     func cancelVALogin()
+    func setDistance(_ averageDistanceMM:Int)
 }
 
 public class VisionApp: NSObject {
@@ -544,6 +545,8 @@ extension VisionApp: ARSCNViewDelegate {
             let averageDistance = (leftEyeDistanceFromCamera.length() + rightEyeDistanceFromCamera.length()) / 2
             
             let averageDistanceMM = Int(round(averageDistance * 1000))
+            self.delegate?.setDistance(averageDistanceMM)
+
             if averageDistanceMM <= self.distanceToDevice {
                 self.hiddenView?.isHidden = false
             } else {
