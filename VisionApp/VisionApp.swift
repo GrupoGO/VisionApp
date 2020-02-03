@@ -11,11 +11,11 @@ import ARKit
 import SceneKit
 import Accelerate
 
-
 public protocol VisionAppDelegate {
     func userVAInfo(userToken: String, userName:String, profileId:Int?, profileName:String?)
     func cancelVALogin()
     func setDistance(_ averageDistanceMM:Int)
+    func setClosedEye(_ eye:String?)
 }
 
 public class VisionApp: NSObject {
@@ -553,6 +553,45 @@ extension VisionApp: ARSCNViewDelegate {
                 self.hiddenView?.isHidden = true
             }
             
+            if let anchor = self.currentFaceAnchor {
+                let blendShapes = anchor.blendShapes
+                let eyeBlinkLeft = blendShapes[.eyeBlinkLeft]?.floatValue ?? 0.0
+                let eyeBlinkRight = blendShapes[.eyeBlinkRight]?.floatValue ?? 0.0
+                var leftEyeStatus:EyeStatus = .closed
+                var rightEyeStatus:EyeStatus = .closed
+                if Int(eyeBlinkLeft * 100) > 0 || Int(eyeBlinkRight * 100) > 0 {
+                    if Int(eyeBlinkLeft * 100) > 10 && Int(eyeBlinkRight * 100) > 10 {
+                        leftEyeStatus = .closed
+                        rightEyeStatus = .closed
+                    } else {
+                        if Int(eyeBlinkLeft * 100) > 10 {
+                            leftEyeStatus = .open
+                        }
+                        if Int(eyeBlinkRight * 100) > 10 {
+                            rightEyeStatus = .open
+                        }
+                    }
+                } else {
+                    leftEyeStatus = .open
+                    rightEyeStatus = .open
+                }
+                
+                if leftEyeStatus != rightEyeStatus && (leftEyeStatus == .closed || rightEyeStatus == .closed) {
+                    if leftEyeStatus == .closed {
+                        self.delegate?.setClosedEye("left")
+                    } else {
+                        self.delegate?.setClosedEye("right")
+                    }
+                } else {
+                    self.delegate?.setClosedEye(nil)
+                }
+
+                
+            } else {
+                self.delegate?.setClosedEye(nil)
+            }
+
+            
             //6. Print distance
 //            self.distanceLabel.text = "\(averageDistanceMM) mm"
 
@@ -759,6 +798,11 @@ extension UIDevice {
         return "Apple \(mapToDevice(identifier: identifier))"
     }
     
+}
+
+enum EyeStatus {
+    case open
+    case closed
 }
 
 enum VirtualContentType: Int {
