@@ -46,7 +46,7 @@ extension AppDelegate: VisionAppDelegate {
     }
 
     func setClosedEye(_ eye: String?) {
-        // MARK: - Returns eye blink: "left", "right" or nil
+        // MARK: - Returns the winked eye: "left", "right" or nil
     }
 
 }
