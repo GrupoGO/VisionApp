@@ -42,11 +42,11 @@ extension AppDelegate: VisionAppDelegate {
     }
 
     func setDistance(_ averageDistanceMM: Int) {
-        // MARK: - Distance to device in mm
+        // MARK: - Returns distance to device in mm
     }
 
     func setClosedEye(_ eye: String?) {
-        // MARK: - Eye blink. Returns "left", "right" or nil
+        // MARK: - Returns eye blink: "left", "right" or nil
     }
 
 }
