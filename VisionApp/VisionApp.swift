@@ -37,6 +37,7 @@ public class VisionApp: NSObject {
     var hiddenView:HiddenView?
     
     var distanceToDevice = 300
+    var timerLaunch = Date()
 
     var selectedVirtualContent: VirtualContentType! {
         didSet {
@@ -553,42 +554,46 @@ extension VisionApp: ARSCNViewDelegate {
                 self.hiddenView?.isHidden = true
             }
             
-            if let anchor = self.currentFaceAnchor {
-                let blendShapes = anchor.blendShapes
-                let eyeBlinkLeft = blendShapes[.eyeBlinkLeft]?.floatValue ?? 0.0
-                let eyeBlinkRight = blendShapes[.eyeBlinkRight]?.floatValue ?? 0.0
-                var leftEyeStatus:EyeStatus = .closed
-                var rightEyeStatus:EyeStatus = .closed
-                if Int(eyeBlinkLeft * 100) > 0 || Int(eyeBlinkRight * 100) > 0 {
-                    if Int(eyeBlinkLeft * 100) > 10 && Int(eyeBlinkRight * 100) > 10 {
-                        leftEyeStatus = .closed
-                        rightEyeStatus = .closed
-                    } else {
-                        if Int(eyeBlinkLeft * 100) > 10 {
-                            leftEyeStatus = .open
+            let calendar = Calendar.current
+            if calendar.date(byAdding: .second, value: 1, to: self.timerLaunch)! < Date() {
+                self.timerLaunch = Date()
+                if let anchor = self.currentFaceAnchor {
+                    let blendShapes = anchor.blendShapes
+                    let eyeBlinkLeft = blendShapes[.eyeBlinkLeft]?.floatValue ?? 0.0
+                    let eyeBlinkRight = blendShapes[.eyeBlinkRight]?.floatValue ?? 0.0
+                    var leftEyeStatus:EyeStatus = .closed
+                    var rightEyeStatus:EyeStatus = .closed
+                    if Int(eyeBlinkLeft * 100) > 0 || Int(eyeBlinkRight * 100) > 0 {
+                        if Int(eyeBlinkLeft * 100) > 10 && Int(eyeBlinkRight * 100) > 10 {
+                            leftEyeStatus = .closed
+                            rightEyeStatus = .closed
+                        } else {
+                            if Int(eyeBlinkLeft * 100) > 10 {
+                                leftEyeStatus = .open
+                            }
+                            if Int(eyeBlinkRight * 100) > 10 {
+                                rightEyeStatus = .open
+                            }
                         }
-                        if Int(eyeBlinkRight * 100) > 10 {
-                            rightEyeStatus = .open
-                        }
-                    }
-                } else {
-                    leftEyeStatus = .open
-                    rightEyeStatus = .open
-                }
-                
-                if leftEyeStatus != rightEyeStatus && (leftEyeStatus == .closed || rightEyeStatus == .closed) {
-                    if leftEyeStatus == .closed {
-                        self.delegate?.setClosedEye("left")
                     } else {
-                        self.delegate?.setClosedEye("right")
+                        leftEyeStatus = .open
+                        rightEyeStatus = .open
                     }
+                    
+                    if leftEyeStatus != rightEyeStatus && (leftEyeStatus == .closed || rightEyeStatus == .closed) {
+                        if leftEyeStatus == .closed {
+                            self.delegate?.setClosedEye("left")
+                        } else {
+                            self.delegate?.setClosedEye("right")
+                        }
+                    } else {
+                        self.delegate?.setClosedEye(nil)
+                    }
+
+                    
                 } else {
                     self.delegate?.setClosedEye(nil)
                 }
-
-                
-            } else {
-                self.delegate?.setClosedEye(nil)
             }
 
             
