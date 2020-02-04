@@ -41,6 +41,14 @@ extension AppDelegate: VisionAppDelegate {
         // MARK: - TODO Check if the user wants to be shown again in VisionApp
     }
 
+    func setDistance(_ averageDistanceMM: Int) {
+        // MARK: - Distance to device in mm
+    }
+
+    func setClosedEye(_ eye: String?) {
+        // MARK: - Eye blink. Returns "left", "right" or nil
+    }
+
 }
 ```
 
