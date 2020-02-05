@@ -35,6 +35,7 @@ public class VisionApp: NSObject {
     var currentUser:VAUser? = nil
     var currentProfile:VAProfile? = nil
     var hiddenView:HiddenView?
+    var hideView: Bool = true
     
     var distanceToDevice = 300
     var timerLaunch = Date()
@@ -63,6 +64,10 @@ public class VisionApp: NSObject {
             contentControllers[selectedVirtualContent] = controller
             return controller
         }
+    }
+    
+    public func setHideView(_ hidden: Bool) {
+        self.hideView = hidden
     }
 
     public func configuration(token:String, secret:String, delegate: VisionAppDelegate) {
@@ -548,7 +553,7 @@ extension VisionApp: ARSCNViewDelegate {
             let averageDistanceMM = Int(round(averageDistance * 1000))
             self.delegate?.setDistance(averageDistanceMM)
 
-            if averageDistanceMM <= self.distanceToDevice {
+            if averageDistanceMM <= self.distanceToDevice, self.hideView {
                 self.hiddenView?.isHidden = false
             } else {
                 self.hiddenView?.isHidden = true
