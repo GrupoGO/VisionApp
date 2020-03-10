@@ -227,20 +227,10 @@ public class VisionApp: NSObject {
     public func profileSelection(_ userToken:String? = nil) {
         if let user = self.currentUser {
             if user.profiles.count == 1 {
-                let profile = user.profiles[0]
-                UserDefaults.standard.set(profile.code, forKey: "VAcurrentUserProfileCode")
-                self.currentProfile = profile
-                self.requestConfiguration(profile)
-                self.setScene(userToken, user: user, profile: profile)
-                if let lastSecond = UserDefaults.standard.object(forKey: "initDate\(profile.code)") as? Date {
-                    self.lastSecond = lastSecond
-                } else {
-                    self.lastSecond = Date()
-                    UserDefaults.standard.set(self.lastSecond!, forKey: "initDate\(profile.code)")
-                }
-                self.checkForDevice(profile: profile)
+                self.startTrackingProfile(user.profiles[0].code, userToken: userToken)
             } else if user.profiles.count > 1 {
                 let alertController = UIAlertController(title: NSLocalizedString("Select profile", tableName: nil, bundle: Bundle(for: type(of: self)), value: "", comment: ""), message: nil, preferredStyle: .alert)
+
                 for profile in user.profiles {
                     let profileAction = UIAlertAction(title: profile.name, style: .default) { (_) in
                         self.startTrackingProfile(profile.code, userToken: userToken)
