@@ -243,17 +243,7 @@ public class VisionApp: NSObject {
                 let alertController = UIAlertController(title: NSLocalizedString("Select profile", tableName: nil, bundle: Bundle(for: type(of: self)), value: "", comment: ""), message: nil, preferredStyle: .alert)
                 for profile in user.profiles {
                     let profileAction = UIAlertAction(title: profile.name, style: .default) { (_) in
-                        UserDefaults.standard.set(profile.code, forKey: "VAcurrentUserProfileCode")
-                        self.currentProfile = profile
-                        self.requestConfiguration(profile)
-                        self.setScene(userToken, user: user, profile: profile)
-                        if let lastSecond = UserDefaults.standard.object(forKey: "initDate\(profile.code)") as? Date {
-                            self.lastSecond = lastSecond
-                        } else {
-                            self.lastSecond = Date()
-                            UserDefaults.standard.set(self.lastSecond!, forKey: "initDate\(profile.code)")
-                        }
-                        self.checkForDevice(profile: profile)
+                        self.startTrackingProfile(profile.code, userToken: userToken)
                     }
                     alertController.addAction(profileAction)
                 }
@@ -268,6 +258,23 @@ public class VisionApp: NSObject {
                 
                 UIApplication.shared.windows.last?.rootViewController?.present(alertController, animated: true, completion: nil)
             }
+        }
+    }
+    
+    
+    public func startTrackingProfile(_ code:Int, userToken:String?) {
+        if let user = self.currentUser, let profile = user.profiles.first(where: {$0.code == code}) {
+            UserDefaults.standard.set(profile.code, forKey: "VAcurrentUserProfileCode")
+            self.currentProfile = profile
+            self.requestConfiguration(profile)
+            self.setScene(userToken, user: user, profile: profile)
+            if let lastSecond = UserDefaults.standard.object(forKey: "initDate\(profile.code)") as? Date {
+                self.lastSecond = lastSecond
+            } else {
+                self.lastSecond = Date()
+                UserDefaults.standard.set(self.lastSecond!, forKey: "initDate\(profile.code)")
+            }
+            self.checkForDevice(profile: profile)
         }
     }
 
